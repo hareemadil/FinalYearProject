@@ -23,8 +23,8 @@ public class GetSearchResult {
         String userAgent = "ExampleBot 1.0 (+http://example.com/bot)"; // Change this to your company's name and bot homepage!
         String url;
         //System.out.println(google + URLEncoder.encode(searchString, charset));
-        System.setProperty("http.proxyHost", "10.1.20.18");
-        System.setProperty("http.proxyPort", "9090");
+      //  System.setProperty("http.proxyHost", "10.1.20.18");
+       // System.setProperty("http.proxyPort", "9090");
         Document doc = Jsoup.connect(google + URLEncoder.encode(searchString, charset)).userAgent(userAgent).get();
         // System.out.println(doc);
 
