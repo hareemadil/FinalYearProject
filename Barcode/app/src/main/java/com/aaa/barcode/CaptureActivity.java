@@ -62,7 +62,9 @@ public class CaptureActivity extends Activity {
     public void getProducts(View view){
         Intent newScreen = new Intent("com.database.ListActivityClass");
         finish();
-        newScreen.putExtra("Product", ProductBarcode);
+        System.out.println(barcodeText.getText().toString());
+        String random =  barcodeText.getText().toString();
+        newScreen.putExtra("Product", random);
         startActivity(newScreen);
 
     }
