@@ -6,6 +6,7 @@ package com.aaa.barcode;
 
 
         import android.app.Activity;
+        import android.content.Intent;
         import android.os.Bundle;
         import android.os.Handler;
         import android.widget.Toast;
@@ -15,6 +16,8 @@ package com.aaa.barcode;
         import com.aaa.barcode.BoundingView;
         import com.aaa.barcode.CameraPreviewView;
         import com.database.DB;
+        import com.database.CustomListView;
+
 
 /**
  * Capture activity (camera barcode activity)
@@ -74,7 +77,14 @@ public class CaptureActivity extends Activity {
             //will only work for aquafina barcode
             dbObject.pullData(decodedData);
             System.out.println("-----------------------------------------------------------------------");
-
+            try{
+              //  Intent intent= new Intent(this, ListView.class);
+               // startActivity(intent);
+               // setContentView(R.layout.activity_list_view);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 }
