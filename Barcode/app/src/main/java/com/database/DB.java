@@ -63,12 +63,12 @@ public class DB {
         Cursor c = mDbAdapter.GetCount();
         if(c.getCount() <= 0){
             ArrayList<String[]> barcodeProducts = new ArrayList<>();
-            barcodeProducts.add(new String[]{"0012000811395","Milo"});
+            barcodeProducts.add(new String[]{"8961014106305","Milo"});
             //we will add hardcoded barcodes and product name here
             //barcodeProducts.add(new String[]{"0012000811395","Milo"});
 
 
-            registerProduct("0012000811395", "Milo");
+            registerProduct("8961014106305", "Milo");
             System.out.println("---------------------->added ");
         }
 
@@ -102,18 +102,19 @@ public class DB {
     }
 
 
-    public void pullData(String barcode) {
+    public ParseQuery<ParseObject> pullData(String barcode) {
        // Toast.makeText(mainContext.getApplicationContext(), "ok o acha",Toast.LENGTH_LONG).show();
         getProductName(barcode);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
         query.whereStartsWith("Name", "" + pName);
+       final ArrayList<String> results = new ArrayList<>();
         // query.whereEqualTo("playerName","Sean Plott");
+        /*
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> scoreList, ParseException e) {
 
                 if (e == null) {
-
-                    ArrayList<String> results = new ArrayList<>();
+                   // ArrayList<String> results = new ArrayList<>();
 
                     for (int i = 0; i < scoreList.size(); i++) {
                         //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
@@ -124,10 +125,11 @@ public class DB {
 
                 } else {
                     System.out.println("Error: " + e.getMessage());
+
                 }
             }
-        });
-
+        });*/
+        return query;
     }
 
 
