@@ -9,14 +9,13 @@ package com.aaa.barcode;
         import android.content.Intent;
         import android.os.Bundle;
         import android.os.Handler;
-        import android.widget.Toast;
-        import com.aaa.barcode.CameraManager;
-        import com.aaa.barcode.CaptureHandler;
-        import com.aaa.barcode.PreviewCallback;
-        import com.aaa.barcode.BoundingView;
-        import com.aaa.barcode.CameraPreviewView;
+        import android.view.View;
+        import android.widget.EditText;
+        import android.widget.TextView;
+
         import com.database.DB;
-        import com.database.CustomListView;
+
+        import java.util.ArrayList;
 
 
 /**
@@ -36,7 +35,10 @@ public class CaptureActivity extends Activity {
      */
     private Handler captureHandler;
 
-    DB dbObject;
+
+    EditText barcodeText;
+    TextView barcodeTextView;
+    String ProductBarcode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,12 +55,16 @@ public class CaptureActivity extends Activity {
         cameraPreview = (CameraPreviewView) findViewById(R.id.camera_preview);
         cameraPreview.setCameraManager(cameraManager);
         ((BoundingView) findViewById(R.id.bounding_view)).setCameraManager(cameraManager);
+        barcodeText = (EditText) findViewById(R.id.barodeText);
 
-        try{
-            dbObject=  new DB(this);
+    }
 
-        }catch(Exception e)
-        {e.printStackTrace();}
+    public void getProducts(View view){
+        Intent newScreen = new Intent("com.database.ListActivityClass");
+        finish();
+        newScreen.putExtra("Product", ProductBarcode);
+        startActivity(newScreen);
+
     }
 
     @Override
@@ -67,24 +73,29 @@ public class CaptureActivity extends Activity {
         cameraManager.release();
     }
 
+
+
     private class OnDecoded implements CaptureHandler.OnDecodedCallback {
         @Override
         public void onDecoded(String decodedData) {
-            Toast.makeText(CaptureActivity.this, decodedData, Toast.LENGTH_SHORT).show();
-            Toast.makeText(CaptureActivity.this,"WOW scanned", Toast.LENGTH_SHORT).show();
+           //Toast.makeText(CaptureActivity.this, decodedData, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(CaptureActivity.this,"WOW scanned", Toast.LENGTH_SHORT).show();
             System.out.println("-----------------------------------------------------------------------");
             System.out.println(decodedData);
-            //will only work for aquafina barcode
-            dbObject.pullData(decodedData);
-            System.out.println("-----------------------------------------------------------------------");
+
+
             try{
-              //  Intent intent= new Intent(this, ListView.class);
-               // startActivity(intent);
-               // setContentView(R.layout.activity_list_view);
+
+                ProductBarcode = decodedData;
+                barcodeTextView = (TextView)barcodeText;
+                barcodeTextView.setText(decodedData);
+
             }
             catch (Exception e){
                 e.printStackTrace();
             }
+
+            System.out.println("-----------------------------------------------------------------------");
         }
     }
 }

@@ -2,74 +2,74 @@
 <items version="2" >
 
     <item
-        jar="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\classes-fc265c6f195cf0f49adda5f993198edb37196eea.jar" />
-    </item>
-    <item
-        jar="C:\Users\Asif\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-2135d0b5651781b19830596f3bf51e52ff2383f2.jar" />
-    </item>
-    <item
-        jar="C:\Users\Asif\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\3.2.1\2287494d4f5f9f3a9a2bb6980e3f32053721b315\core-3.2.1.jar"
+        jar="C:\Users\Jahaanzaib\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\3.2.1\2287494d4f5f9f3a9a2bb6980e3f32053721b315\core-3.2.1.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="2287494d4f5f9f3a9a2bb6980e3f32053721b315">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\core-3.2.1-b36a0a725b9a597dd28496256a5f6923ad1b7ea8.jar" />
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\core-3.2.1-4ed3955277f9c7a0c40fb89500e499dee16523d9.jar" />
     </item>
     <item
-        jar="C:\Users\Asif\.gradle\caches\modules-2\files-2.1\com.google.zxing\android-core\3.2.1\c1de4bba95fac060cc96a3af39ef6ffd17e18157\android-core-3.2.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="c1de4bba95fac060cc96a3af39ef6ffd17e18157">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\android-core-3.2.1-44476ca3181575acfd76e03241cb699cce8b27d7.jar" />
-    </item>
-    <item
-        jar="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\exploded-aar\com.android.support\design\23.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="19026d31f5d3ae868db81319671a642be5fbba08">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\classes-b6dc2e3ce6a5da34ac096ecbfe8fdf622fc180d2.jar" />
-    </item>
-    <item
-        jar="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\classes-19b84b2a34ebfb4604f33e1ba38a04eecc7b3265.jar" />
-    </item>
-    <item
-        jar="C:\Users\Asif\.gradle\caches\modules-2\files-2.1\com.parse\parse-android\1.10.3\36366e460af2c0f224bb8f70b64e3302f638b138\parse-android-1.10.3.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="36366e460af2c0f224bb8f70b64e3302f638b138">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\parse-android-1.10.3-775b043937869d9017ef2f24d392972adeda017c.jar" />
-    </item>
-    <item
-        jar="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jar="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-93008925db09d78daf9b69a1db470fde01f1f01b.jar" />
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-a559fbccd77de1caa1d77dfdee33f6f9de9f6b52.jar" />
     </item>
     <item
-        jar="C:\Users\Asif\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.1\44780c2cf98f6a3cf4e77f1234d644758b329201\bolts-android-1.2.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="44780c2cf98f6a3cf4e77f1234d644758b329201">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.1-f56a59f99b168df149344107ed91a692c00d146b.jar" />
-    </item>
-    <item
-        jar="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jar="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
-        <dex dex="F:\Final Year Project\GithubHareem\Barcode\app\build\intermediates\pre-dexed\debug\classes-14be7fdcb71f1a183409603151df789fe1b6407a.jar" />
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\classes-969db2f9f710fe645fe93b19e34cba06357b016e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jahaanzaib\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.1\44780c2cf98f6a3cf4e77f1234d644758b329201\bolts-android-1.2.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="44780c2cf98f6a3cf4e77f1234d644758b329201">
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.1-fcfae83961168a5329837cb17d946f0fca3c9c3f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jahaanzaib\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-dfc1fe5967fe1a945f1911abfde0dc34d6b12e66.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jahaanzaib\.gradle\caches\modules-2\files-2.1\com.parse\parse-android\1.10.3\36366e460af2c0f224bb8f70b64e3302f638b138\parse-android-1.10.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="36366e460af2c0f224bb8f70b64e3302f638b138">
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\parse-android-1.10.3-a203485dcc392d4b4f308556c566eaf64622aff9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\exploded-aar\com.android.support\design\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="19026d31f5d3ae868db81319671a642be5fbba08">
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\classes-becc9d65059ca4bdbc362ccf721411895056a353.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jahaanzaib\.gradle\caches\modules-2\files-2.1\com.google.zxing\android-core\3.2.1\c1de4bba95fac060cc96a3af39ef6ffd17e18157\android-core-3.2.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c1de4bba95fac060cc96a3af39ef6ffd17e18157">
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\android-core-3.2.1-7dcb31b26d1f89c16af1836b19442d349ba56a65.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\classes-1a5cee89ee43f85d459e2f36cd9b2eaa022b3f54.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="C:\Users\Jahaanzaib\Documents\GitHub\FinalYearProject\Barcode\app\build\intermediates\pre-dexed\debug\classes-564f2d57f9c0ad327e33c20174bf7a3f0004661d.jar" />
     </item>
 
 </items>

@@ -7,11 +7,26 @@
         android:layout_height="fill_parent"
         >
     <view android:layout_width="fill_parent"
-          android:layout_height="fill_parent"
+          android:layout_height="311dp"
           class="com.aaa.barcode.CameraPreviewView" android:id="@+id/camera_preview"/>
     <view android:layout_width="fill_parent"
-          android:layout_height="fill_parent"
+          android:layout_height="360dp"
           class="com.aaa.barcode.BoundingView" android:id="@+id/bounding_view"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search for Product"
+        android:id="@+id/button"
+        android:onClick="getProducts"
+        android:layout_gravity="right|bottom" />
+
+    <EditText
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/barodeText"
+        android:layout_gravity="left|bottom" />
+
 </FrameLayout>
 
-<!-- From: file:/F:/Final%20Year%20Project/GithubHareem/Barcode/app/src/main/res/layout/activity_capture.xml -->
+<!-- From: file:/C:/Users/Jahaanzaib/Documents/GitHub/FinalYearProject/Barcode/app/src/main/res/layout/activity_capture.xml -->

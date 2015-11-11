@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cropped_welcome" android:visibility="visible">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scanBtn"
+        android:src="@drawable/cropped_scanbtn" android:clickable="true"
+        android:focusable="true" android:visibility="visible"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_marginBottom="112dp"
+        android:onClick="ScanBarcode"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>
+
+<!-- From: file:/C:/Users/Jahaanzaib/Documents/GitHub/FinalYearProject/Barcode/app/src/main/res/layout/home_screen.xml -->
