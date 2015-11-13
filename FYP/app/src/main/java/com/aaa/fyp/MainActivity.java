@@ -14,22 +14,21 @@ import android.view.MenuItem;
 import com.aaa.fyp.R;
 import com.database.DB;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity   {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
-
-
-
     }
+
 
     public void ScanBarcode(View view){
         Intent newScreen = new Intent("com.aaa.fyp.SimpleScannerActivity");
        // finish();
 
         startActivity(newScreen);
+        finish();
     }
 
 

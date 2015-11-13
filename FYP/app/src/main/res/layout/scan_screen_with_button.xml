@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proceed"
+        android:id="@+id/proceed_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="43dp"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="barcode"
+        android:id="@+id/barcode_label"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/proceed_btn"
+        android:layout_alignEnd="@+id/proceed_btn" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Format"
+        android:id="@+id/format_label"
+        android:layout_below="@+id/barcode_label"
+        android:layout_alignLeft="@+id/barcode_label"
+        android:layout_alignStart="@+id/barcode_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="date"
+        android:id="@+id/date_label"
+        android:layout_below="@+id/format_label"
+        android:layout_alignLeft="@+id/format_label"
+        android:layout_alignStart="@+id/format_label" />
+
+</RelativeLayout>
