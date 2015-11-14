@@ -13,10 +13,12 @@ public class ScanResultScreen extends SimpleScannerActivity {
     View scanned;
     TextView bc;
     TextView f;
+
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.scan_screen_with_button);
+
 
     }
     public void ScanResultScreen(View v, String barcode, String format){
@@ -26,5 +28,6 @@ public class ScanResultScreen extends SimpleScannerActivity {
         bc.setText(barcode);
         f=(TextView) findViewById(R.id.format_label);
         f.setText(format);
+
     }
 }
