@@ -61,34 +61,37 @@ public class DB {
 
     private void popuateSampleData(){
         Cursor c = mDbAdapter.GetCount();
-        if(c.getCount() <= 0){
-            ArrayList<String[]> barcodeProducts = new ArrayList<>();
-            barcodeProducts.add(new String[]{"8961014106305","Milo"});
+        if(c.getCount() <= 7){
+
             //we will add hardcoded barcodes and product name here
             //barcodeProducts.add(new String[]{"0012000811395","Milo"});
 
 
-            registerProduct("8961014106305", "Milo");
+            registerProduct("8961014106305", "Aquafina");
+            registerProduct("8712561315906", "Dove natural touch");
+            registerProduct("8414135625748", "Nike woman");
+            registerProduct("671866116817", "potato sticks");
+            registerProduct("6281036113009", "Lays salted");
+            registerProduct("695240101428", "Milo");
+            registerProduct("695240101428", "Dolar ink ");
+            registerProduct("3800020456323", "Kitkat Chunky");
             System.out.println("---------------------->added ");
         }
 
     }
 
     private void registerProduct(String barcode,String pName) {
-        Toast.makeText(mainContext.getApplicationContext(), "in reg",
-                Toast.LENGTH_LONG).show();
 
-        Log.d("data", "in reg");
+
+
         long id = mDbAdapter.createTask(barcode, pName);
         if (id > 0) {
             mRowId = id;
-            Toast.makeText(mainContext.getApplicationContext(), "Registered ^_^",
-                       Toast.LENGTH_LONG).show();
+
         }
         else {
             mDbAdapter.updateProduct(barcode, pName);
-            Toast.makeText(mainContext.getApplicationContext(), "Updated !!",
-                       Toast.LENGTH_LONG).show();
+
         }
 
     }
@@ -107,9 +110,11 @@ public class DB {
         getProductName(barcode);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
         query.whereStartsWith("Name", "" + pName);
-       final ArrayList<String> results = new ArrayList<>();
-        // query.whereEqualTo("playerName","Sean Plott");
+
+
+        
         /*
+         final ArrayList<String> results = new ArrayList<>();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> scoreList, ParseException e) {
 

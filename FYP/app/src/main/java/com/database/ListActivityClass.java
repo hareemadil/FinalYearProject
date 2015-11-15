@@ -47,6 +47,7 @@ public class ListActivityClass extends Activity {
 
         try{
             dbObject=  new DB(this);
+            //to change query please refer to the function pullData
             Products = dbObject.pullData(Barcode);
             Products.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> scoreList, ParseException e) {
@@ -55,15 +56,17 @@ public class ListActivityClass extends Activity {
                         // ArrayList<String> results = new ArrayList<>();
                         String[] itemname = new String[2];
 
+                        //will have to work on how to make these logo dynamic
                         Integer[] imgid={
                                 R.mipmap.qne_logo,
                                 R.mipmap.gomart_logo
                         };
+
+                        //populates the list of products
                         for (int i = 0; i < scoreList.size(); i++) {
                             //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
                             //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price"));
-                            itemname[0] = scoreList.get(i).get("Name")+" "+scoreList.get(i).get("Price");
-                            itemname[1] = scoreList.get(i).get("Name")+" "+scoreList.get(i).get("Price");
+                            itemname[i] = scoreList.get(i).get("Name")+" "+scoreList.get(i).get("Price");
                             System.out.println("------------------------>"+scoreList.get(i).get("Name"));
                         }
 
