@@ -75,6 +75,8 @@ public class DB {
             registerProduct("695240101428", "Milo");
             registerProduct("695240101428", "Dolar ink ");
             registerProduct("3800020456323", "Kitkat Chunky");
+            registerProduct("8961008208114", "Milo 200ml");
+
             System.out.println("---------------------->added ");
         }
 
@@ -88,8 +90,7 @@ public class DB {
         if (id > 0) {
             mRowId = id;
 
-        }
-        else {
+        } else {
             mDbAdapter.updateProduct(barcode, pName);
 
         }
