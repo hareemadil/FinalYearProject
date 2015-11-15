@@ -63,7 +63,7 @@ public class ListActivityClass extends Activity {
                             //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
                             //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price"));
                             itemname[0] = scoreList.get(i).get("Name")+" "+scoreList.get(i).get("Price");
-                            itemname[1] = scoreList.get(i).get("Name")+" "+scoreList.get(i).get("Price");
+
                             System.out.println("------------------------>"+scoreList.get(i).get("Name"));
                         }
 

@@ -67,15 +67,16 @@ public class DB {
             //barcodeProducts.add(new String[]{"0012000811395","Milo"});
 
 
-            registerProduct("8961014106305", "Aquafina");
+            registerProduct("12000014338", "Aquafina 500ml");
+            registerProduct("8964000101957", "Slice Mango");
             registerProduct("8712561315906", "Dove natural touch");
             registerProduct("8414135625748", "Nike woman");
-            registerProduct("671866116817", "potato sticks");
+            registerProduct("671866116817", "Potato Sticks");
             registerProduct("6281036113009", "Lays salted");
-            registerProduct("695240101428", "Milo");
+           // registerProduct("695240101428", "Milo");
             registerProduct("695240101428", "Dolar ink ");
             registerProduct("3800020456323", "Kitkat Chunky");
-            System.out.println("---------------------->added ");
+            System.out.println("succesfully populated local database ");
         }
 
     }
@@ -106,13 +107,13 @@ public class DB {
 
 
     public ParseQuery<ParseObject> pullData(String barcode) {
-       // Toast.makeText(mainContext.getApplicationContext(), "ok o acha",Toast.LENGTH_LONG).show();
-        getProductName(barcode);
+         getProductName(barcode);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
-        query.whereStartsWith("Name", "" + pName);
 
+        //query.whereStartsWith("Name", "" + pName);
+        //query.whereContains("Name", "" + pName);
+        query.whereMatches("Name", "(" + pName + ")", "i");
 
-        
         /*
          final ArrayList<String> results = new ArrayList<>();
         query.findInBackground(new FindCallback<ParseObject>() {

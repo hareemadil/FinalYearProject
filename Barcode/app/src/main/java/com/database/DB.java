@@ -106,6 +106,7 @@ public class DB {
        // Toast.makeText(mainContext.getApplicationContext(), "ok o acha",Toast.LENGTH_LONG).show();
         getProductName(barcode);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+
         query.whereStartsWith("Name", "" + pName);
        final ArrayList<String> results = new ArrayList<>();
         // query.whereEqualTo("playerName","Sean Plott");

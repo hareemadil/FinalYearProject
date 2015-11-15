@@ -22,26 +22,28 @@ public class CustomListView extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] itemname;
+    private final String[] Prices;
     private final Integer[] imgid;
 
-    public CustomListView(Activity context, String[] itemname, Integer[] imgid) {
+    public CustomListView(Activity context, String[] itemname, Integer[] imgid,String[] Prices) {
         super(context, R.layout.activity_list_view, itemname);
         this.context=context;
         this.itemname=itemname;
         this.imgid=imgid;
+        this.Prices = Prices;
     }
     @Override
     public View getView(int position,View view,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.activity_list_view, null,true);
+        View rowView=inflater.inflate(R.layout.activity_list_view, null, true);
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
+        TextView PriceTxt = (TextView) rowView.findViewById(R.id.item);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+        TextView ProductNameTxt = (TextView) rowView.findViewById(R.id.textView1);
 
-        txtTitle.setText(itemname[position]);
+        PriceTxt.setText("Rs. "+Prices[position]);
         imageView.setImageResource(imgid[position]);
-        extratxt.setText("Description "+itemname[position]);
+        ProductNameTxt.setText(itemname[position]);
         return rowView;
 
     };
