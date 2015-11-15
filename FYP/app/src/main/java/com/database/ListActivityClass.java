@@ -64,7 +64,8 @@ public class ListActivityClass extends Activity {
                                 R.mipmap.doorstep,
                                 R.mipmap.rashan_lelo,
                                 R.mipmap.shoprex_logo,
-                                R.mipmap.cartpk
+                                R.mipmap.cartpk,
+                                R.mipmap.qne_logo//qne
                         };
                         ArrayList<String> webstores = new ArrayList<String>();
                         webstores.add("qne.com.pk");
@@ -74,6 +75,7 @@ public class ListActivityClass extends Activity {
                         webstores.add("rashanlelo.pk");
                         webstores.add("shoprex.com");
                         webstores.add("cartpk.com");
+                        webstores.add("qne.pk");
 
 
                         Integer[] imgid= new Integer[scoreList.size()];
