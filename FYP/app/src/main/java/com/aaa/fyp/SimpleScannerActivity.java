@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
 import java.text.SimpleDateFormat;
@@ -25,14 +26,14 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         TextView f;
         TextView d;
         Button proceed;
-        View  memecontentView ;
-       View v = memecontentView;
+        BarcodeFormat r;
+    View  memecontentView ;
     @Override
         public void onCreate(Bundle state) {
             super.onCreate(state);
             mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
             setContentView(mScannerView);                // Set the scanner view as the content view
-            memecontentView= findViewById(R.id.camera_preview);
+           memecontentView= findViewById(R.id.camera_preview);
 
     }
 
@@ -57,31 +58,14 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             Toast.makeText(SimpleScannerActivity.this, rawResult.getBarcodeFormat().toString(), Toast.LENGTH_LONG).show();
             Log.v(TAG, rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
             //Intent scanScreenResult= new Intent("com.aaa.fyp.ScanResultScreen");
-
             Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");
             nextScreen.putExtra("barcode",rawResult.toString());
             nextScreen.putExtra("format", rawResult.getBarcodeFormat().toString());
-            finish();
+           finish();
             startActivity(nextScreen);
-            /*setContentView(R.layout.scan_screen_with_button);
-            bc= (TextView)findViewById(R.id.barcode_label);
-            bc.setText(rawResult.toString());
-            f=(TextView) findViewById(R.id.format_label);
-            f.setText(rawResult.getBarcodeFormat().toString());
-            d=(TextView)findViewById(R.id.date_label);
-            String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-            d.setText(formattedDate);
-            proceed=(Button) findViewById(R.id.proceed_btn);
-            //proceed.click
-            // Intent proceedListView= new Intent("com.aaa.fyp.ListActivityClass");
-            //proceedListView.putExtra("Product", rawResult.getText());
-            //startActivity(proceedListView);
-            //scanScreenResult.putExtras()
-            //startActivity(scanScreenResult);
-            //ScanResultScreen obj =new ScanResultScreen();
-            //   obj.ScanResultScreen(mScannerView,rawResult.toString(),rawResult.getBarcodeFormat().toString());
 
-            */
         }
+
+
     }
 

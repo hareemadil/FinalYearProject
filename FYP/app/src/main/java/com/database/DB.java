@@ -67,7 +67,7 @@ public class DB {
             //barcodeProducts.add(new String[]{"0012000811395","Milo"});
 
 
-            registerProduct("12000014338", "Aquafina 500ml");
+            registerProduct("12000014338", "Aquafina");
             registerProduct("8964000101957", "Slice Mango");
             registerProduct("8712561315906", "Dove natural touch");
             registerProduct("8414135625748", "Nike woman");
@@ -76,7 +76,13 @@ public class DB {
            // registerProduct("695240101428", "Milo");
             registerProduct("695240101428", "Dolar ink ");
             registerProduct("3800020456323", "Kitkat Chunky");
+
             System.out.println("succesfully populated local database ");
+
+            registerProduct("8961008208114", "Milo 200ml");
+
+            System.out.println("---------------------->added ");
+
         }
 
     }
@@ -89,8 +95,7 @@ public class DB {
         if (id > 0) {
             mRowId = id;
 
-        }
-        else {
+        } else {
             mDbAdapter.updateProduct(barcode, pName);
 
         }
