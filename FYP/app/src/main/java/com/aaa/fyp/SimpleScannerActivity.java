@@ -1,5 +1,7 @@
 package com.aaa.fyp;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,9 +55,24 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         @Override
         public void handleResult(Result rawResult) {
             // Do something with the result here
+            AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+            Account[] list = manager.getAccounts();
+            String gmail = null;
+
+            for(Account account: list)
+            {
+                if(account.type.equalsIgnoreCase("com.google"))
+                {
+                    gmail = account.name;
+                    break;
+                }
+            }
+
+            Toast.makeText(SimpleScannerActivity.this,gmail,Toast.LENGTH_LONG).show();
+
             Log.v(TAG, rawResult.getText()); // Prints scan results
-            Toast.makeText(SimpleScannerActivity.this, rawResult.toString() + "  WOW scanned", Toast.LENGTH_LONG).show();
-            Toast.makeText(SimpleScannerActivity.this, rawResult.getBarcodeFormat().toString(), Toast.LENGTH_LONG).show();
+           // Toast.makeText(SimpleScannerActivity.this, rawResult.toString() + "  WOW scanned", Toast.LENGTH_LONG).show();
+           // Toast.makeText(SimpleScannerActivity.this, rawResult.getBarcodeFormat().toString(), Toast.LENGTH_LONG).show();
             Log.v(TAG, rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
             //Intent scanScreenResult= new Intent("com.aaa.fyp.ScanResultScreen");
             Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");
@@ -63,6 +80,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             nextScreen.putExtra("format", rawResult.getBarcodeFormat().toString());
            finish();
             startActivity(nextScreen);
+
 
         }
 
