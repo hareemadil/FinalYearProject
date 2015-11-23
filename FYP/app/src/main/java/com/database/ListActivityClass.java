@@ -7,9 +7,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import com.aaa.fyp.SimpleScannerActivity;
@@ -20,6 +24,7 @@ import com.parse.ParseQuery;
 
 import com.parse.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ListActivityClass extends Activity {
@@ -95,6 +100,36 @@ public class ListActivityClass extends Activity {
                         CustomListView adapter=new CustomListView(ListActivityClass.this,itemname, imgid,Prices);
                         list=(ListView)findViewById(R.id.list);
                         list.setAdapter(adapter);
+                        registerForContextMenu(list);
+
+
+
+
+                       list.setOnItemClickListener(new OnItemClickListener() {
+                            public void onItemClick(AdapterView<?> parent, View view,
+                                                    int position, long id) {
+                                // When clicked, show a toast with the TextView text Game, Help, Home
+                               // Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
+                                //        Toast.LENGTH_SHORT).show();
+                            //    String sText = ((TextView) view).getText().toString();
+                                Intent intent = null;
+                            //   if (sText.contains("Review"))
+                                    intent = new Intent(getBaseContext(),
+                                            Review.class);
+
+                                //else if(sText.equals("Help")) ..........
+
+                                if (intent != null)
+                                    startActivity(intent);
+                            }
+                        });
+
+
+
+
+
+
+
                         /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                             @Override
@@ -111,12 +146,65 @@ public class ListActivityClass extends Activity {
                         System.out.println("Error: " + e.getMessage());
 
                     }
+
+
                 }
+
             });
+
+
+
+
+
+
+
             System.out.println("----------------------------------------------------------------------");
         }catch(Exception e)
         {e.printStackTrace();}
 
 
     }
+
+
+    @Override
+//Context menu display krnay ka code.
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        //AdapterView.AdapterContextMenuInfo aInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+        // We know that each row in the adapter is a Map
+
+        //
+        // HashMap map =  (HashMap) list.getItemAtPosition(aInfo.position);
+
+      //  menu.setHeaderTitle("Options for " + map.get("itemname"));
+
+        menu.add(1, 1, 1, "Review");
+
+        menu.add(1, 2, 2, "Similar Products");
+
+    }
+
+//Context Menu mein item clicked tou new activity khulnay ka code.
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 1:
+                //first ContextMenu option I picked this to start the  new activity
+                Intent i = new Intent(ListActivityClass.this, Review.class);
+                i.putExtra("str", longdesc);
+                startActivity(i);
+                break;
+            case 2:
+                //stuff for option 2 of the ContextMenu
+                break;
+        }
+        return super.onContextItemSelected(item);
+    }
+
 }
+
+
+
+
