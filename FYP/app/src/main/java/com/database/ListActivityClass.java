@@ -193,7 +193,7 @@ public class ListActivityClass extends Activity {
             case 1:
                 //first ContextMenu option I picked this to start the  new activity
                 Intent i = new Intent(ListActivityClass.this, Review.class);
-                i.putExtra("str", longdesc);
+              //  i.putExtra("str", longdesc);
                 startActivity(i);
                 break;
             case 2:

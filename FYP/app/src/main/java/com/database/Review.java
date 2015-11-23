@@ -20,10 +20,10 @@ public class Review extends Activity{
 
         // you have to create game.xml
         setContentView(R.layout.reviewlayout);
-        TextView texts = (TextView) findViewById(R.id.textView1);
-        Intent i = getIntent();
-        Intent i2 = getIntent();
-        String text1 =i2.getStringExtra("str");
-        texts.setText(text1);
+      //  TextView texts = (TextView) findViewById(R.id.textView1);
+      //  Intent i = getIntent();
+      ///  Intent i2 = getIntent();
+      //  String text1 =i2.getStringExtra("str");
+       // texts.setText(text1);
     }
 }
