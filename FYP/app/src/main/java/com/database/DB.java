@@ -67,7 +67,7 @@ public class DB {
             //barcodeProducts.add(new String[]{"0012000811395","Milo"});
 
 
-            registerProduct("12000014338", "Aquafina");
+            registerProduct("012000014338", "Aquafina");
             registerProduct("8964000101957", "Slice Mango");
             registerProduct("8712561315906", "Dove natural touch");
             registerProduct("8414135625748", "Nike woman");

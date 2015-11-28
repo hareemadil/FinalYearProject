@@ -17,6 +17,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.slidingmenu_tabhostviewpager.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
