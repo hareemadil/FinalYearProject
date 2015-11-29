@@ -5,5 +5,8 @@
     <integer name="viewfinder_border_length">60</integer>
     <string name="title_activity_list_view">CustomListView</string>
     <string name="title_activity_list_activity_class">ListActivityClass</string>
+    <string name="drawer_opened">Drawer Opened</string>
+    <string name="drawer_closed">Drawer Closed</string>
+
 
 </resources>
