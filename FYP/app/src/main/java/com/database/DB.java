@@ -3,9 +3,11 @@ package com.database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -14,8 +16,16 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 
 public class DB {
     String barcode;
@@ -23,6 +33,7 @@ public class DB {
     DBAdapterLogin mDbAdapter;
     Context mainContext;
     Long mRowId;
+    private String parsedHtmlNode = null;
 
     public DB(Context mainCtx){
 
@@ -36,6 +47,7 @@ public class DB {
     }
 
     private void getProductName(String barcode) {
+       /* this commented code will be our layer 1 of local database
         try {
             Cursor c = mDbAdapter.getItemByBarcode(barcode);
             if (c.getCount() == 0) {
@@ -57,6 +69,21 @@ public class DB {
 
             }
         }catch(Exception e){e.printStackTrace();}
+        //*/
+        // -----------Layer2
+        UPCDatabase upcLayer2 = new UPCDatabase();
+        upcLayer2.execute();
+
+        try {
+            upcLayer2.get();
+            pName = parsedHtmlNode;
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        // -----------Layer2 end
     }
 
     private void popuateSampleData(){
@@ -112,12 +139,12 @@ public class DB {
 
 
     public ParseQuery<ParseObject> pullData(String barcode) {
-         getProductName(barcode);
+        getProductName(barcode);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
-
+        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product");
         //query.whereStartsWith("Name", "" + pName);
-        //query.whereContains("Name", "" + pName);
-        query.whereMatches("Name", "(" + pName + ")", "i");
+      //query.whereMatches("Name", "(" + pName + ")", "i");
+        query2.whereMatchesKeyInQuery("Subcategory","Subcategory", query.whereMatches("Name", "(" + pName + ")", "i"));
 
         /*
          final ArrayList<String> results = new ArrayList<>();
@@ -141,6 +168,46 @@ public class DB {
             }
         });*/
         return query;
+    }
+
+
+    class UPCDatabase extends AsyncTask<Void, Void, Void> {
+
+
+
+        private Document htmlDocument;
+        private String htmlPageUrl = "http://www.upcdatabase.com/item/";
+        private String productName;
+        public String barcode = "012000014338";
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                String charset = "UTF-8";
+                String userAgent = "ExampleBot 1.0 (+http://example.com/bot)"; // Change this to your company's name and bot homepage!
+                String url;
+                //System.out.println(google + URLEncoder.encode(searchString, charset));
+                //  System.setProperty("http.proxyHost", "10.1.20.18");
+                // System.setProperty("http.proxyPort", "9090");
+                Document doc = Jsoup.connect(htmlPageUrl + URLEncoder.encode(barcode, charset)).userAgent(userAgent).get();
+                Element searchResultCenterContent = doc.select(".data").select("tr").get(2).select("td").get(2);
+                System.out.println(searchResultCenterContent.text());
+                productName = searchResultCenterContent.text();
+                parsedHtmlNode = productName;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            parsedHtmlNode = productName;
+        }
     }
 
 
