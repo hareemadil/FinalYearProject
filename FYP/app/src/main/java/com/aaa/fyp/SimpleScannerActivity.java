@@ -59,7 +59,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             Account[] list = manager.getAccounts();
             String gmail = null;
 
-            for(Account account: list)
+                        for(Account account: list)
             {
                 if(account.type.equalsIgnoreCase("com.google"))
                 {

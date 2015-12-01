@@ -173,8 +173,6 @@ public class DB {
 
     class UPCDatabase extends AsyncTask<Void, Void, Void> {
 
-
-
         private Document htmlDocument;
         private String htmlPageUrl = "http://www.upcdatabase.com/item/";
         private String productName;
