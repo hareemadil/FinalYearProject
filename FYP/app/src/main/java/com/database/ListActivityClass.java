@@ -2,6 +2,7 @@ package com.database;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,15 +31,7 @@ import java.util.List;
 public class ListActivityClass extends Activity {
 
     ListView list;
-    String[] itemname ={
-            "Aquafina",
-            "Milo"
-    };
-    ArrayList<String> item2 = new ArrayList<>();
-    Integer[] imgid={
-            R.mipmap.qne_logo,
-            R.mipmap.gomart_logo
-    };
+    final ArrayList<String> links  = new ArrayList<>();
     DB dbObject;
     ParseQuery<ParseObject> Products;
     @Override
@@ -89,11 +82,11 @@ public class ListActivityClass extends Activity {
                         for (int i = 0; i < scoreList.size(); i++) {
 
                             //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
-                            //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price"));
-                            itemname[i] = scoreList.get(i).get("Name")+"";
+                            //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
                             Prices[i] = scoreList.get(i).get("Price")+"";
 
                             imgid[i]= imgid2[webstores.indexOf(scoreList.get(i).get("Store"))];
+                            links.add(scoreList.get(i).get("link").toString());
                             System.out.println("Product name test print----->"+scoreList.get(i).get("Name"));
                         }
 
@@ -124,24 +117,6 @@ public class ListActivityClass extends Activity {
                             }
                         });
 
-
-
-
-
-
-
-                        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-                                // TODO Auto-generated method stub
-                                String Slecteditem = itemname[+position];
-                                Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
-
-                            }
-                        });*/
-
                     } else {
                         System.out.println("Error: " + e.getMessage());
 
@@ -151,15 +126,7 @@ public class ListActivityClass extends Activity {
                 }
 
             });
-
-
-
-
-
-
-
-            System.out.println("----------------------------------------------------------------------");
-        }catch(Exception e)
+ }catch(Exception e)
         {e.printStackTrace();}
 
 
@@ -182,7 +149,7 @@ public class ListActivityClass extends Activity {
 
         menu.add(1, 1, 1, "Review");
 
-        menu.add(1, 2, 2, "Similar Products");
+        menu.add(1, 2, 2, "Go to link");
 
     }
 
@@ -197,7 +164,13 @@ public class ListActivityClass extends Activity {
                 startActivity(i);
                 break;
             case 2:
-                //stuff for option 2 of the ContextMenu
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                int index = info.position;
+                System.out.println("+++test++++++++++++++++++whatttt***********)_((_(()(@@@"+links.get(index));
+                String url = links.get(index); // You could have this at the top of the class as a constant, or pass it in as a method variable, if you wish to send to multiple websites
+                Intent Browser = new Intent(Intent.ACTION_VIEW); // Create a new intent - stating you want to 'view something'
+                Browser.setData(Uri.parse(url));  // Add the url data (allowing android to realise you want to open the browser)
+                startActivity(Browser); // Go go go!
                 break;
         }
         return super.onContextItemSelected(item);
