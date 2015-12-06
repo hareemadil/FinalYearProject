@@ -195,10 +195,10 @@ public class ScanResultScreen extends SimpleScannerActivity {
 
     //pcall
     public void displayResults(View view){
-        Intent newScreen = new Intent("com.database.ListActivityClass");
-        newScreen.putExtra("Product", Barcode);
+     //   Intent newScreen = new Intent("com.database.ListActivityClass");
+       // newScreen.putExtra("Product", Barcode);
         finish();
-        startActivity(newScreen);
+       // startActivity(newScreen);
     }
 
 }

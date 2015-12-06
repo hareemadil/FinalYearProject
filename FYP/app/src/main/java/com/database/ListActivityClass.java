@@ -36,10 +36,19 @@ public class ListActivityClass extends Activity {
     ParseQuery<ParseObject> Products;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_activity_class);
 
         Intent myIntent = getIntent(); // gets the previously created intent
+        Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");
+        nextScreen.putExtra("barcode",myIntent.getStringExtra("barcode"));
+        nextScreen.putExtra("format", myIntent.getStringExtra("format"));
+        //finish();
+        startActivity(nextScreen);
+
+
+
         String Barcode = myIntent.getStringExtra("Product");
         System.out.println("in list view ---- >" + Barcode);
 
