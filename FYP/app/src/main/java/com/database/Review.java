@@ -6,24 +6,84 @@ package com.database;
 
 
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aaa.fyp.R;
+import com.google.zxing.Result;
+import com.parse.ParseObject;
 
 public class Review extends Activity{
-    @Override
+
+    String name;
+    String store;
+
+
+        @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // you have to create game.xml
         setContentView(R.layout.reviewlayout);
-      //  TextView texts = (TextView) findViewById(R.id.textView1);
-      //  Intent i = getIntent();
-      ///  Intent i2 = getIntent();
-      //  String text1 =i2.getStringExtra("str");
-       // texts.setText(text1);
+
+            AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+            Account[] list = manager.getAccounts();
+            String gmail = null;
+
+            for(Account account: list)
+            {
+                if(account.type.equalsIgnoreCase("com.google"))
+                {
+                    gmail = account.name;
+                    break;
+                }
+            }
+            EditText editEmail =(EditText)findViewById(R.id.editEmail);
+            editEmail.setText(gmail);
+
+        Bundle bundle = getIntent().getExtras();
+            name = (String) bundle.get("com.aaa.fyp.ProductName");
+            store = (String) bundle.get("com.aaa.fyp.ProductStore");
+            System.out.println(name);
+            System.out.println(store);
+
+
+        TextView PName = (TextView) findViewById(R.id.Name);
+
+        TextView PStore = (TextView) findViewById(R.id.Store);
+        PName.setText(name);
+        PStore.setText(store);
+
+
+
     }
+
+
+
+    public void ReviewSubmit(View v)
+    {
+        ParseObject Review = new ParseObject("Review");
+
+        EditText editEmail =(EditText)findViewById(R.id.editEmail);
+        EditText editReview =(EditText)findViewById(R.id.editReview);
+
+        String review= editReview.getText().toString();
+        String email=  editEmail.getText().toString();
+
+        Review.put("Email",  email);
+        Review.put("Review", review);
+        Review.put("Name", name);
+        Review.put("store", store);
+        Review.saveInBackground();
+
+         Toast.makeText(this, "Review Submitted!", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, review, Toast.LENGTH_LONG).show();
+        finish();
+    }
+
 }

@@ -34,6 +34,8 @@ public class ListActivityClass extends Activity {
     final ArrayList<String> links  = new ArrayList<>();
     DB dbObject;
     ParseQuery<ParseObject> Products;
+    List<ParseObject> globalScoreList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,7 +60,7 @@ public class ListActivityClass extends Activity {
             Products = dbObject.pullData(Barcode);
             Products.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> scoreList, ParseException e) {
-
+                    globalScoreList = scoreList;
                     if (e == null) {
                         // ArrayList<String> results = new ArrayList<>();
                         String[] itemname = new String[scoreList.size()];
@@ -165,16 +167,21 @@ public class ListActivityClass extends Activity {
 //Context Menu mein item clicked tou new activity khulnay ka code.
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int index = info.position;
         switch (item.getItemId()) {
             case 1:
-                //first ContextMenu option I picked this to start the  new activity
-                Intent i = new Intent(ListActivityClass.this, Review.class);
-              //  i.putExtra("str", longdesc);
-                startActivity(i);
+                Intent myIntent = new Intent(getApplicationContext(), Review.class);
+                ParseObject product = globalScoreList.get(index);
+                String name =  (String)product.get("Name");
+                String store = (String)product.get("Store");
+                System.out.println("name : " + name + ", store : " + store);
+
+                myIntent.putExtra("com.aaa.fyp.ProductName", name);
+                myIntent.putExtra("com.aaa.fyp.ProductStore", store);
+                startActivity(myIntent);
                 break;
             case 2:
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                int index = info.position;
                 System.out.println("+++test++++++++++++++++++whatttt***********)_((_(()(@@@"+links.get(index));
                 String url = links.get(index); // You could have this at the top of the class as a constant, or pass it in as a method variable, if you wish to send to multiple websites
                 Intent Browser = new Intent(Intent.ACTION_VIEW); // Create a new intent - stating you want to 'view something'
