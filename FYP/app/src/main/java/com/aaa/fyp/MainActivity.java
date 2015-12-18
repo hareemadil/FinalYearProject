@@ -11,15 +11,22 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.R;
 import com.database.DB;
+//import com.slide_menu.AndroidMenuMainActivity;
+//import com.slidingmenu_tabhostviewpager.SlideMainActivity;
 
-public class MainActivity extends Activity   {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+     //   setContentView(R.layout.home_screen);
+        getLayoutInflater().inflate(R.layout.home_screen, frameLayout);
+        mDrawerList.setItemChecked(position, true);
+        setTitle(listArray[position]);
+
     }
 
 
@@ -32,13 +39,13 @@ public class MainActivity extends Activity   {
     }
 
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+*//*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -52,5 +59,5 @@ public class MainActivity extends Activity   {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

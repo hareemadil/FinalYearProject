@@ -8,5 +8,10 @@
     <string name="drawer_opened">Drawer Opened</string>
     <string name="drawer_closed">Drawer Closed</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
+
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
 </resources>

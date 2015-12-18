@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.SimpleScannerActivity;
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListActivityClass extends Activity {
+public class ListActivityClass extends BaseActivity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
@@ -38,7 +40,10 @@ public class ListActivityClass extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_activity_class);
+//       setContentView(R.layout.activity_list_activity_class);
+        getLayoutInflater().inflate(R.layout.activity_list_activity_class, frameLayout);
+       mDrawerList.setItemChecked(position, true);
+       setTitle(listArray[position]);
 
         Intent myIntent = getIntent(); // gets the previously created intent
         Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");

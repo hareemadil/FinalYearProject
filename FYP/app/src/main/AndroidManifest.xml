@@ -13,42 +13,31 @@
         android:icon="@drawable/ic_launcher"
         android:label="Alpha Compare"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+         >
 
         <activity
             android:name="com.aaa.fyp.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            >
             <intent-filter>
                 <action android:name="com.aaa.fyp.MainActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.slidingmenu_tabhostviewpager.MainActivity"
-            android:label="@string/app_name"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".SimpleScannerActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            >
             <intent-filter>
                 <action android:name="com.aaa.fyp.SimpleScannerActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
         android:name=".ScanResultScreen"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.NoActionBar" >
+        >
         <intent-filter>
             <action android:name="com.aaa.fyp.ScanResultScreen" />
 
@@ -59,10 +48,9 @@
         <activity
             android:name="com.database.Review"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+             >
             <intent-filter>
                 <action android:name="com.aaa.fyp.Review" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -71,14 +59,22 @@
         <activity
             android:name="com.database.ListActivityClass"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+           >
             <intent-filter>
                 <action android:name="com.database.ListActivityClass" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.SlideMenu.BaseActivity"
+            android:label="@string/app_name"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

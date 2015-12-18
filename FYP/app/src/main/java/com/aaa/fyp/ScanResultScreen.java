@@ -5,46 +5,62 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.SlideMenu.BaseActivity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.slidingmenu_tabhostviewpager.*;
+//import com.models.NavItem;
+//import com.slidingmenu_tabhostviewpager.*;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 
-public class ScanResultScreen extends SimpleScannerActivity {
+public class ScanResultScreen extends BaseActivity {
 
     ImageView scanned;
     TextView bc;
     TextView f;
     String Barcode;
     String format;
-    BarcodeFormat form;
-    @Override
+    TextView d;
+
+   @Override
     public void onCreate(Bundle state) {
 
         super.onCreate(state);
-        setContentView(R.layout.scan_screen_with_button);
+       // setContentView(R.layout.scan_screen_with_button);
 
+        getLayoutInflater().inflate(R.layout.scan_screen_with_button, frameLayout);
+        mDrawerList.setItemChecked(position, true);
+        setTitle(listArray[position]);
         ViewGroup layout = (ViewGroup) findViewById(R.id.scanScreenWithButton);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+     //   layout.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
         //layout.setOrientation(LinearLayout.VERTICAL);
 
-        setContentView(layout);
-        Intent prevScreen = getIntent(); // gets the previously created intent
+//        setContentView(layout);
+      // getLayoutInflater().inflate((XmlPullParser) layout, frameLayout);
+
+       Intent prevScreen = getIntent(); // gets the previously created intent
 
         Barcode=prevScreen.getStringExtra("barcode");
         bc= (TextView)findViewById(R.id.barcode_label);
@@ -52,7 +68,7 @@ public class ScanResultScreen extends SimpleScannerActivity {
 
         format=prevScreen.getStringExtra("format");
         f=(TextView) findViewById(R.id.format_label);
-        f.setText(prevScreen.getStringExtra("format").toString());
+        f.setText(format);
 
 
         d=(TextView)findViewById(R.id.date_label);

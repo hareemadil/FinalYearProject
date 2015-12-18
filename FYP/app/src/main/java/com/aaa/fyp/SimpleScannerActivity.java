@@ -8,15 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 /**
  * Created by Asif on 11/13/2015.
@@ -24,9 +20,8 @@ import java.util.Calendar;
 public class SimpleScannerActivity extends Activity implements ZXingScannerView.ResultHandler {
         public ZXingScannerView mScannerView ;
         private static final String TAG = "CameraPreview";
-        TextView bc;
-        TextView f;
-        TextView d;
+
+
         Button proceed;
         BarcodeFormat r;
     View  memecontentView ;
@@ -76,12 +71,12 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             Log.v(TAG, rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
             //Intent scanScreenResult= new Intent("com.aaa.fyp.ScanResultScreen");
 
-            Intent newScreen = new Intent("com.database.ListActivityClass");
-            newScreen.putExtra("Product", rawResult.toString());
-            newScreen.putExtra("barcode",rawResult.toString());
-            newScreen.putExtra("format", rawResult.getBarcodeFormat().toString());
-            finish();
-            startActivity(newScreen);
+           Intent newScreen = new Intent("com.database.ListActivityClass");
+           newScreen.putExtra("Product", rawResult.toString());
+           newScreen.putExtra("barcode",rawResult.toString());
+           newScreen.putExtra("format", rawResult.getBarcodeFormat().toString());
+           finish();
+           startActivity(newScreen);
 
             /* commented By jx
             Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");
