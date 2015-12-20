@@ -7,13 +7,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editEmail"
         android:editable="true"
         android:layout_above="@+id/editReview"
-        android:layout_alignLeft="@+id/fabb"
-        android:layout_alignStart="@+id/fabb"
+        android:layout_alignLeft="@+id/SubmitReview"
+        android:layout_alignStart="@+id/SubmitReview"
         android:layout_marginBottom="91dp" />
 
     <TextView
@@ -28,7 +28,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editReview"
         android:editable="true"
@@ -50,8 +50,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:id="@+id/fabb"
+        android:id="@+id/SubmitReview"
         android:layout_marginBottom="87dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="ReviewSubmit"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:ems="10"
+        android:id="@+id/Name"
+        android:editable="false"
+        android:layout_alignRight="@+id/editEmail"
+        android:layout_alignEnd="@+id/editEmail"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_above="@+id/editEmail"
+        android:layout_alignLeft="@+id/editEmail"
+        android:layout_alignStart="@+id/editEmail" />
+
+    <TextView
+        android:text="Product Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:visibility="visible"
+        android:layout_above="@+id/editEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:ems="10"
+        android:id="@+id/Store"
+        android:editable="false"
+        android:layout_alignLeft="@+id/Name"
+        android:layout_alignStart="@+id/Name"
+        android:layout_above="@+id/Name"
+        android:autoText="false" />
+
+    <TextView
+        android:text="Store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:visibility="visible"
+        android:layout_alignBottom="@+id/Store"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

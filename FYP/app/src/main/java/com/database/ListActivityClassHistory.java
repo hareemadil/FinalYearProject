@@ -4,58 +4,35 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
-import com.SlideMenu.BaseActivity;
-import com.aaa.fyp.SimpleScannerActivity;
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import com.parse.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class ListActivityClass extends BaseActivity {
+public class ListActivityClassHistory extends Activity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
     DB dbObject;
     ParseQuery<ParseObject> Products;
-    List<ParseObject> globalScoreList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-//       setContentView(R.layout.activity_list_activity_class);
-        getLayoutInflater().inflate(R.layout.activity_list_activity_class, frameLayout);
-       mDrawerList.setItemChecked(position, true);
-       setTitle(listArray[position]);
+        setContentView(R.layout.activity_list_activity_class_history);
 
         Intent myIntent = getIntent(); // gets the previously created intent
-        Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");
-        nextScreen.putExtra("barcode",myIntent.getStringExtra("barcode"));
-        nextScreen.putExtra("format", myIntent.getStringExtra("format"));
-        //finish();
-        startActivity(nextScreen);
-
-
-
         String Barcode = myIntent.getStringExtra("Product");
         System.out.println("in list view ---- >" + Barcode);
 
@@ -65,7 +42,7 @@ public class ListActivityClass extends BaseActivity {
             Products = dbObject.pullData(Barcode);
             Products.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> scoreList, ParseException e) {
-                    globalScoreList = scoreList;
+
                     if (e == null) {
                         // ArrayList<String> results = new ArrayList<>();
                         String[] itemname = new String[scoreList.size()];
@@ -106,7 +83,7 @@ public class ListActivityClass extends BaseActivity {
                             System.out.println("Product name test print----->"+scoreList.get(i).get("Name"));
                         }
 
-                        CustomListView adapter=new CustomListView(ListActivityClass.this,itemname, imgid,Prices);
+                        CustomListView adapter=new CustomListView(ListActivityClassHistory.this,itemname, imgid,Prices);
                         list=(ListView)findViewById(R.id.list);
                         list.setAdapter(adapter);
                         registerForContextMenu(list);
@@ -172,21 +149,20 @@ public class ListActivityClass extends BaseActivity {
 //Context Menu mein item clicked tou new activity khulnay ka code.
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
         switch (item.getItemId()) {
             case 1:
-                Intent myIntent = new Intent(getApplicationContext(), Review.class);
-                ParseObject product = globalScoreList.get(index);
-                String name =  (String)product.get("Name");
-                String store = (String)product.get("Store");
-                System.out.println("name : " + name + ", store : " + store);
+                //first ContextMenu option I picked this to start the  new activity
+                Intent i = new Intent(ListActivityClassHistory.this, Review.class);
+                AdapterView.AdapterContextMenuInfo infoReview = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                int indexReview = infoReview.position;
+                System.out.println("Review"+links.get(indexReview));
 
-                myIntent.putExtra("com.aaa.fyp.ProductName", name);
-                myIntent.putExtra("com.aaa.fyp.ProductStore", store);
-                startActivity(myIntent);
+              //  i.putExtra("str", longdesc);
+                startActivity(i);
                 break;
             case 2:
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                int index = info.position;
                 System.out.println("+++test++++++++++++++++++whatttt***********)_((_(()(@@@"+links.get(index));
                 String url = links.get(index); // You could have this at the top of the class as a constant, or pass it in as a method variable, if you wish to send to multiple websites
                 Intent Browser = new Intent(Intent.ACTION_VIEW); // Create a new intent - stating you want to 'view something'

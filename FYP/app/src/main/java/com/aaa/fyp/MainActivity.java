@@ -32,12 +32,19 @@ public class MainActivity extends BaseActivity {
 
     public void ScanBarcode(View view){
         Intent newScreen = new Intent("com.aaa.fyp.SimpleScannerActivity");
-       // finish();
+        // finish();
 
         startActivity(newScreen);
         finish();
     }
 
+    public void History(View view){
+        Intent newScreen = new Intent("com.aaa.fyp.");
+        // finish();
+
+        startActivity(newScreen);
+        finish();
+    }
 
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
