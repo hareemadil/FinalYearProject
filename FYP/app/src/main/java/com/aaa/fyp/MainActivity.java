@@ -38,13 +38,7 @@ public class MainActivity extends BaseActivity {
         finish();
     }
 
-    public void History(View view){
-        Intent newScreen = new Intent("com.aaa.fyp.");
-        // finish();
 
-        startActivity(newScreen);
-        finish();
-    }
 
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {

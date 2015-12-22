@@ -6,9 +6,7 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="com.database.ListView">
 
-
-
-    <include layout="@layout/content_list_view_history" />
+        <include layout="@layout/content_list_view_history" />
 
 
 </RelativeLayout>

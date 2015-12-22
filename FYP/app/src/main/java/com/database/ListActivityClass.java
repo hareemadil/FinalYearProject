@@ -17,8 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
-import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.SimpleScannerActivity;
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListActivityClass extends BaseActivity {
+public class ListActivityClass extends Activity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
@@ -42,10 +40,7 @@ public class ListActivityClass extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-//       setContentView(R.layout.activity_list_activity_class);
-        getLayoutInflater().inflate(R.layout.activity_list_activity_class, frameLayout);
-       mDrawerList.setItemChecked(position, true);
-       setTitle(listArray[position]);
+        setContentView(R.layout.activity_list_activity_class);
 
         Intent myIntent = getIntent(); // gets the previously created intent
         Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");
@@ -122,11 +117,10 @@ public class ListActivityClass extends BaseActivity {
                                 //        Toast.LENGTH_SHORT).show();
                             //    String sText = ((TextView) view).getText().toString();
                                 Intent intent = null;
-                            //   if (sText.contains("Review"))
+
                                     intent = new Intent(getBaseContext(),
                                             Review.class);
 
-                                //else if(sText.equals("Help")) ..........
 
                                 if (intent != null)
                                     startActivity(intent);
@@ -187,7 +181,6 @@ public class ListActivityClass extends BaseActivity {
                 startActivity(myIntent);
                 break;
             case 2:
-                System.out.println("+++test++++++++++++++++++whatttt***********)_((_(()(@@@"+links.get(index));
                 String url = links.get(index); // You could have this at the top of the class as a constant, or pass it in as a method variable, if you wish to send to multiple websites
                 Intent Browser = new Intent(Intent.ACTION_VIEW); // Create a new intent - stating you want to 'view something'
                 Browser.setData(Uri.parse(url));  // Add the url data (allowing android to realise you want to open the browser)

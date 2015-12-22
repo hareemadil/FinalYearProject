@@ -2,6 +2,7 @@ package com.database;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,102 +25,33 @@ public class ListActivityClassHistory extends Activity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
-    DB dbObject;
-    ParseQuery<ParseObject> Products;
+    historyDB HistoryDbObject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_activity_class_history);
 
-        Intent myIntent = getIntent(); // gets the previously created intent
-        String Barcode = myIntent.getStringExtra("Product");
-        System.out.println("in list view ---- >" + Barcode);
-
         try{
-            dbObject=  new DB(this);
+            HistoryDbObject=  new historyDB(this);
             //to change query please refer to the function pullData
-            Products = dbObject.pullData(Barcode);
-            Products.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> scoreList, ParseException e) {
+            Cursor history = HistoryDbObject.getHistory();
+            String[] itemname = new String[history.getCount()],
+                     Pname= new String[history.getCount()];
+            history.moveToFirst();
+            for (int i=0;i< history.getCount();i++){
 
-                    if (e == null) {
-                        // ArrayList<String> results = new ArrayList<>();
-                        String[] itemname = new String[scoreList.size()];
-                        String[] Prices = new String[scoreList.size()];
-                        //will have to work on how to make these logo dynamic
-                        Integer[] imgid2={
-                                R.mipmap.qne_logo,//qne
-                                R.mipmap.gomart_logo,//gomart
-                                R.mipmap.aaramshop,
-                                R.mipmap.doorstep,
-                                R.mipmap.rashan_lelo,
-                                R.mipmap.shoprex_logo,
-                                R.mipmap.cartpk,
-                                R.mipmap.qne_logo//qne
-                        };
-                        ArrayList<String> webstores = new ArrayList<String>();
-                        webstores.add("qne.com.pk");
-                        webstores.add("gomart.com");
-                        webstores.add("aaramshop.pk");
-                        webstores.add("doorstep.pk");
-                        webstores.add("rashanlelo.pk");
-                        webstores.add("shoprex.com");
-                        webstores.add("cartpk.com");
-                        webstores.add("qne.pk");
+                 itemname[i]=history.getString(0);
+                 Pname[i] = history.getString(1);
+                 history.moveToNext();
+            }
+            CustomListViewHistory adapter=new CustomListViewHistory(ListActivityClassHistory.this,itemname,Pname);
+            list=(ListView)findViewById(R.id.listHistory);
+            list.setAdapter(adapter);
+            //registerForContextMenu(list);
 
-
-                        Integer[] imgid= new Integer[scoreList.size()];
-
-                        //populates the list of products
-                        for (int i = 0; i < scoreList.size(); i++) {
-
-                            //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
-                            //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
-                            Prices[i] = scoreList.get(i).get("Price")+"";
-
-                            imgid[i]= imgid2[webstores.indexOf(scoreList.get(i).get("Store"))];
-                            links.add(scoreList.get(i).get("link").toString());
-                            System.out.println("Product name test print----->"+scoreList.get(i).get("Name"));
-                        }
-
-                        CustomListView adapter=new CustomListView(ListActivityClassHistory.this,itemname, imgid,Prices);
-                        list=(ListView)findViewById(R.id.list);
-                        list.setAdapter(adapter);
-                        registerForContextMenu(list);
-
-
-
-
-                       list.setOnItemClickListener(new OnItemClickListener() {
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-                                // When clicked, show a toast with the TextView text Game, Help, Home
-                               // Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                                //        Toast.LENGTH_SHORT).show();
-                            //    String sText = ((TextView) view).getText().toString();
-                                Intent intent = null;
-                            //   if (sText.contains("Review"))
-                                    intent = new Intent(getBaseContext(),
-                                            Review.class);
-
-                                //else if(sText.equals("Help")) ..........
-
-                                if (intent != null)
-                                    startActivity(intent);
-                            }
-                        });
-
-                    } else {
-                        System.out.println("Error: " + e.getMessage());
-
-                    }
-
-
-                }
-
-            });
- }catch(Exception e)
+        }catch(Exception e)
         {e.printStackTrace();}
 
 

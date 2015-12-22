@@ -21,6 +21,7 @@ package com.SlideMenu;
 
         import com.aaa.fyp.MainActivity;
         import com.aaa.fyp.R;
+        import com.database.ListActivityClassHistory;
         import com.database.Review;
 
 public class BaseActivity extends Activity {
@@ -41,7 +42,7 @@ public class BaseActivity extends Activity {
     /**
      * List item array for navigation drawer items.
      * */
-    protected String[] listArray = { "Home", "Reviews", "Search by Name", "Settings", "About us" };
+    protected String[] listArray = { "Home", "Reviews", "Search by Name", "Settings", "About us" ,"History"};
 
     /**
      * Static variable for selected item position. Which can be used in child activity to know which item is selected from the list.
@@ -178,7 +179,9 @@ public class BaseActivity extends Activity {
             case 4:// About us
                 //startActivity(new Intent(this, Item5Activity.class));
                 break;
-
+            case 5:// History
+                startActivity(new Intent(this, ListActivityClassHistory.class));
+                break;
             default:
                 break;
         }

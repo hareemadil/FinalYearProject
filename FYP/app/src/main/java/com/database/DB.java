@@ -3,16 +3,11 @@ package com.database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Region;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -22,15 +17,13 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
 public class DB {
     String barcode;
     String pName;
-    DBAdapterLogin mDbAdapter;
+    Layer1DBAdapter mDbAdapter;
     Context mainContext;
     Long mRowId;
     private String parsedHtmlNode = null;
@@ -38,8 +31,7 @@ public class DB {
     public DB(Context mainCtx){
 
         this.mainContext =mainCtx;
-        System.out.println("initialized DB successfully ma shaa Allah");
-        mDbAdapter = new DBAdapterLogin(mainContext);
+        mDbAdapter = new Layer1DBAdapter(mainContext);
         mDbAdapter.open();
         Parse.enableLocalDatastore(mainContext);
         Parse.initialize(mainContext, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
@@ -47,12 +39,15 @@ public class DB {
     }
 
     private void getProductName(String barcode) {
-       /* this commented code will be our layer 1 of local database
+       //* this commented code will be our layer 1 of local database
+        boolean previousLayerFailed = true;
+
         try {
             Cursor c = mDbAdapter.getItemByBarcode(barcode);
             if (c.getCount() == 0) {
                 Toast.makeText(mainContext.getApplicationContext(), "Wrong barcode",
                         Toast.LENGTH_LONG).show();
+
             } else {
                 c = mDbAdapter.getProductName(barcode);
 
@@ -65,25 +60,36 @@ public class DB {
                             Toast.LENGTH_LONG).show();
 
                     pName = c.getString(0);
+                    previousLayerFailed = false;
+                    return;
                 }
 
             }
         }catch(Exception e){e.printStackTrace();}
-        //*/
+
+
         // -----------Layer2
-        UPCDatabase upcLayer2 = new UPCDatabase();
-        upcLayer2.execute();
+        if(previousLayerFailed) {
 
-        try {
-            upcLayer2.get();
-            pName = parsedHtmlNode;
+            UPCDatabase upcLayer2 = new UPCDatabase();
+            upcLayer2.barcode = barcode;
+            upcLayer2.execute();
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+            try {
+                upcLayer2.get();
+                pName = parsedHtmlNode;
+                previousLayerFailed = false;
+                return;
+            } catch (InterruptedException e) {
+                e.printStackTrace();previousLayerFailed = true;
+            } catch (ExecutionException e) {
+                e.printStackTrace();previousLayerFailed = true;
+            }
+            // -----------Layer2 end
         }
-        // -----------Layer2 end
+        if(previousLayerFailed){}
+
+
     }
 
     private void popuateSampleData(){
@@ -176,7 +182,7 @@ public class DB {
         private Document htmlDocument;
         private String htmlPageUrl = "http://www.upcdatabase.com/item/";
         private String productName;
-        public String barcode = "012000014338";
+        public String barcode;// = "012000014338";
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
