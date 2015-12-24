@@ -211,7 +211,7 @@ public class ScanResultScreen extends BaseActivity {
 
     //pcall
     public void displayResults(View view){
-     //   Intent newScreen = new Intent("com.database.ListActivityClass");
+     //   Intent newScreen = new Intent("com.database.searchResult");
        // newScreen.putExtra("Product", Barcode);
         finish();
        // startActivity(newScreen);

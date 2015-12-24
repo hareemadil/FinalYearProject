@@ -37,5 +37,6 @@ public class CustomListViewHistory extends ArrayAdapter<String> {
         return rowView;
 
     };
+
 }
 

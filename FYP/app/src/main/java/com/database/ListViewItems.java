@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.aaa.fyp.R;
 
-public class CustomListView extends ArrayAdapter<String> {
+public class ListViewItems extends ArrayAdapter<String> {
 
 
     private final Activity context;
@@ -18,7 +18,7 @@ public class CustomListView extends ArrayAdapter<String> {
     private final String[] Prices;
     private final Integer[] imgid;
 
-    public CustomListView(Activity context, String[] itemname,Integer[] imgid, String[] Prices) {
+    public ListViewItems(Activity context, String[] itemname, Integer[] imgid, String[] Prices) {
         super(context, R.layout.activity_list_view, itemname);
         this.context=context;
         this.itemname=itemname;

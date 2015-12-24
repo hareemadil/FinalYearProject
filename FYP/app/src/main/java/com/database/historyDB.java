@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,7 +31,7 @@ public class historyDB {
     }
 
     public Cursor getHistory() {
-       //* this commented code will be our layer 1 of local database
+        //* this commented code will be our layer 1 of local database
         ArrayList<String> listProduct = new ArrayList<>();
         try {
             Cursor o = mDbAdapter.fetchAllProducts();
@@ -47,32 +44,25 @@ public class historyDB {
         Cursor c = mDbAdapter.GetCount();
         if(c.getCount() <= 7){
 
-            //we will add hardcoded barcodes and product name here
-            //barcodeProducts.add(new String[]{"0012000811395","Milo"});
+            //saveSearchRecord("012000014338", "Aquafina");
+            saveSearchRecord("8964000101957", "Slice Mango");
+            saveSearchRecord("8712561315906", "Dove natural touch");
+            saveSearchRecord("8414135625748", "Nike woman");
+            saveSearchRecord("671866116817", "Potato Sticks");
+            saveSearchRecord("6281036113009", "Lays salted");
+            // saveSearchRecord("695240101428", "Milo");
+            saveSearchRecord("695240101428", "Dolar ink ");
+            saveSearchRecord("3800020456323", "Kitkat Chunky");
+            saveSearchRecord("8961008208114", "Milo 200ml");
 
-
-            registerProduct("012000014338", "Aquafina");
-            registerProduct("8964000101957", "Slice Mango");
-            registerProduct("8712561315906", "Dove natural touch");
-            registerProduct("8414135625748", "Nike woman");
-            registerProduct("671866116817", "Potato Sticks");
-            registerProduct("6281036113009", "Lays salted");
-            // registerProduct("695240101428", "Milo");
-            registerProduct("695240101428", "Dolar ink ");
-            registerProduct("3800020456323", "Kitkat Chunky");
-
-            System.out.println("succesfully populated local database ");
-
-            registerProduct("8961008208114", "Milo 200ml");
-
+            System.out.println("succesfully populated local history database ");
             System.out.println("---------------------->added ");
 
         }
 
     }
 
-    private void registerProduct(String barcode,String pName) {
-
+    public void saveSearchRecord(String barcode, String pName) {
         long id = mDbAdapter.insertProduct(barcode, pName);
         if (id > 0) {
             mRowId = id;
@@ -83,10 +73,6 @@ public class historyDB {
         }
 
     }
-
-
-
-
 
     class UPCDatabase extends AsyncTask<Void, Void, Void> {
 

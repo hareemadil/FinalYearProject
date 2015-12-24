@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.R;
 import com.database.DB;
+import com.parse.Parse;
 //import com.slide_menu.AndroidMenuMainActivity;
 //import com.slidingmenu_tabhostviewpager.SlideMainActivity;
 
@@ -26,6 +27,8 @@ public class MainActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.home_screen, frameLayout);
         mDrawerList.setItemChecked(position, true);
         setTitle(listArray[position]);
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
 
     }
 

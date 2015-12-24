@@ -3,6 +3,7 @@ package com.database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Region;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -22,19 +23,24 @@ import java.util.concurrent.ExecutionException;
 
 public class DB {
     String barcode;
-    String pName;
+    String pName = "nothing";
     Layer1DBAdapter mDbAdapter;
     Context mainContext;
     Long mRowId;
     private String parsedHtmlNode = null;
+
+    historyDB HistoryDbObject;
 
     public DB(Context mainCtx){
 
         this.mainContext =mainCtx;
         mDbAdapter = new Layer1DBAdapter(mainContext);
         mDbAdapter.open();
-        Parse.enableLocalDatastore(mainContext);
-        Parse.initialize(mainContext, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
+
+        HistoryDbObject=  new historyDB(mainCtx);
+
+       // Parse.enableLocalDatastore(mainContext);
+       // Parse.initialize(mainContext, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
         popuateSampleData();
     }
 
@@ -99,8 +105,9 @@ public class DB {
             //we will add hardcoded barcodes and product name here
             //barcodeProducts.add(new String[]{"0012000811395","Milo"});
 
+            // registerProduct("012000014338", "Aquafina");
 
-            registerProduct("012000014338", "Aquafina");
+            registerProduct("8961014106305", "Aquafina");
             registerProduct("8964000101957", "Slice Mango");
             registerProduct("8712561315906", "Dove natural touch");
             registerProduct("8414135625748", "Nike woman");
@@ -122,8 +129,6 @@ public class DB {
 
     private void registerProduct(String barcode,String pName) {
 
-
-
         long id = mDbAdapter.createTask(barcode, pName);
         if (id > 0) {
             mRowId = id;
@@ -144,14 +149,30 @@ public class DB {
     }
 
 
-    public ParseQuery<ParseObject> pullData(String barcode) {
+    public ParseQuery<ParseObject> getProducts(String barcode) {
         getProductName(barcode);
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
-        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product");
-        //query.whereStartsWith("Name", "" + pName);
-      //query.whereMatches("Name", "(" + pName + ")", "i");
-        query2.whereMatchesKeyInQuery("Subcategory","Subcategory", query.whereMatches("Name", "(" + pName + ")", "i"));
 
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+     //   ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product");
+        //query.whereStartsWith("Name", "" + pName);
+        query.whereMatches("Name", "(" + pName + ")", "i");
+        //query2.whereMatchesKeyInQuery("Subcategory", "Subcategory", query.whereMatches("Name", "(" + pName + ")", "i"));
+        if(pName.compareTo("nothing") == 0 ){
+            Toast.makeText(mainContext.getApplicationContext(), "Nothing found for this barcode!!",
+                Toast.LENGTH_LONG).show();
+        }else{
+               try{
+                   HistoryDbObject.saveSearchRecord(barcode,pName);
+               }catch(SQLiteConstraintException e){
+                   Toast.makeText(mainContext.getApplicationContext(), "barcode already in the history database!!",
+                           Toast.LENGTH_LONG).show();
+                   System.out.println("+++++++++++++__(*^%$@#$%^&*()_=== barcode already in the history database!!");
+                   return query;
+               }catch(Exception ex){
+                   return query;
+
+               }
+        }
         /*
          final ArrayList<String> results = new ArrayList<>();
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -173,6 +194,20 @@ public class DB {
                 }
             }
         });*/
+        return query;
+    }
+
+
+    public ParseQuery<ParseObject> getSimilar(String pName) {
+
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product");
+        //query.whereStartsWith("Name", "" + pName);
+        //query.whereMatches("Name", "(" + pName + ")", "i");
+        query2.whereMatchesKeyInQuery("Subcategory","Subcategory", query.whereMatches("Name", "(" + pName + ")", "i"));
+
+
         return query;
     }
 
@@ -202,8 +237,10 @@ public class DB {
                 System.out.println(searchResultCenterContent.text());
                 productName = searchResultCenterContent.text();
                 parsedHtmlNode = productName;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(mainContext.getApplicationContext(), "Failed to find barcode in upcDatabase!!",
+                        Toast.LENGTH_LONG).show();
             }
             return null;
         }

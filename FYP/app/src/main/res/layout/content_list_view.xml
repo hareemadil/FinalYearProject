@@ -6,17 +6,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.database.CustomListView">
+    tools:context="com.database.ListViewItems">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:padding="5dp"
-        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp" />
+        android:layout_alignParentStart="true" />
 
     <RelativeLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,20 +33,20 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:padding="2dp"
         android:textColor="#000000"
-        android:layout_alignBottom="@+id/icon"
-        android:layout_toRightOf="@+id/icon"
-        android:layout_toEndOf="@+id/icon" />
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Product Name"
-        android:textColor="#2087a1"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:padding="2dp"
 
-        android:layout_toRightOf="@+id/icon"
-        android:layout_above="@+id/item" />
+        android:layout_alignTop="@+id/icon"
+        android:layout_alignLeft="@+id/item"
+        android:layout_alignStart="@+id/item" />
 
 </RelativeLayout>

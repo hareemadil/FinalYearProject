@@ -35,7 +35,7 @@ public class ListActivityClassHistory extends Activity {
 
         try{
             HistoryDbObject=  new historyDB(this);
-            //to change query please refer to the function pullData
+            //to change query please refer to the function getProducts
             Cursor history = HistoryDbObject.getHistory();
             String[] itemname = new String[history.getCount()],
                      Pname= new String[history.getCount()];

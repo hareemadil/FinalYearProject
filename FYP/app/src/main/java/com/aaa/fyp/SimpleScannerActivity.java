@@ -71,7 +71,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             Log.v(TAG, rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
             //Intent scanScreenResult= new Intent("com.aaa.fyp.ScanResultScreen");
 
-           Intent newScreen = new Intent("com.database.ListActivityClass");
+           Intent newScreen = new Intent("com.database.searchResult");
            newScreen.putExtra("Product", rawResult.toString());
            newScreen.putExtra("barcode",rawResult.toString());
            newScreen.putExtra("format", rawResult.getBarcodeFormat().toString());

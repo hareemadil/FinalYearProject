@@ -4,20 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import com.aaa.fyp.SimpleScannerActivity;
+
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -25,10 +18,9 @@ import com.parse.ParseQuery;
 
 import com.parse.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class ListActivityClass extends Activity {
+public class searchResult extends Activity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
@@ -48,16 +40,14 @@ public class ListActivityClass extends Activity {
         nextScreen.putExtra("format", myIntent.getStringExtra("format"));
         //finish();
         startActivity(nextScreen);
-
-
-
         String Barcode = myIntent.getStringExtra("Product");
         System.out.println("in list view ---- >" + Barcode);
 
         try{
             dbObject=  new DB(this);
-            //to change query please refer to the function pullData
-            Products = dbObject.pullData(Barcode);
+            //to change query please refer to the function getProducts
+            Products = dbObject.getProducts(Barcode);
+            System.out.println("SUCCESSSSS DAMN &@!#$%^&*(**&^%$## s");
             Products.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> scoreList, ParseException e) {
                     globalScoreList = scoreList;
@@ -95,37 +85,18 @@ public class ListActivityClass extends Activity {
                             //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
                             //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
                             Prices[i] = scoreList.get(i).get("Price")+"";
-
+                            itemname[i] = scoreList.get(i).get("Name")+"";
                             imgid[i]= imgid2[webstores.indexOf(scoreList.get(i).get("Store"))];
                             links.add(scoreList.get(i).get("link").toString());
                             System.out.println("Product name test print----->"+scoreList.get(i).get("Name"));
                         }
 
-                        CustomListView adapter=new CustomListView(ListActivityClass.this,itemname, imgid,Prices);
+                        ListViewItems adapter=new ListViewItems(searchResult.this,itemname, imgid,Prices);
                         list=(ListView)findViewById(R.id.list);
                         list.setAdapter(adapter);
                         registerForContextMenu(list);
+                        System.out.println("reached here 123");
 
-
-
-
-                       list.setOnItemClickListener(new OnItemClickListener() {
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-                                // When clicked, show a toast with the TextView text Game, Help, Home
-                               // Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                                //        Toast.LENGTH_SHORT).show();
-                            //    String sText = ((TextView) view).getText().toString();
-                                Intent intent = null;
-
-                                    intent = new Intent(getBaseContext(),
-                                            Review.class);
-
-
-                                if (intent != null)
-                                    startActivity(intent);
-                            }
-                        });
 
                     } else {
                         System.out.println("Error: " + e.getMessage());
@@ -156,11 +127,11 @@ public class ListActivityClass extends Activity {
         // HashMap map =  (HashMap) list.getItemAtPosition(aInfo.position);
 
       //  menu.setHeaderTitle("Options for " + map.get("itemname"));
+        System.out.println("something happened here i guess");
 
         menu.add(1, 1, 1, "Review");
-
         menu.add(1, 2, 2, "Go to link");
-
+        menu.add(1, 3, 3, "View Similar Products");
     }
 
 //Context Menu mein item clicked tou new activity khulnay ka code.
@@ -185,6 +156,11 @@ public class ListActivityClass extends Activity {
                 Intent Browser = new Intent(Intent.ACTION_VIEW); // Create a new intent - stating you want to 'view something'
                 Browser.setData(Uri.parse(url));  // Add the url data (allowing android to realise you want to open the browser)
                 startActivity(Browser); // Go go go!
+                break;
+            case 3:
+                Intent similarProductsActivity = new Intent(getApplicationContext(), similarProducts.class); // Create a new intent - stating you want to 'view something'
+                similarProductsActivity.putExtra("productName",dbObject.pName);  // Add the url data (allowing android to realise you want to open the browser)
+                startActivity(similarProductsActivity); // Go go go!
                 break;
         }
         return super.onContextItemSelected(item);

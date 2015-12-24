@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper2 extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "Products";
+    private static final String DATABASE_NAME = "Products2";
     private static final int DATABASE_VERSION = 2;
     private static final String Table1 = "CREATE TABLE history (barcode text primary key,PName text not null);";//,fname text,lname text,ad text,com text);";
 
