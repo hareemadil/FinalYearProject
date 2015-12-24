@@ -23,6 +23,7 @@ package com.SlideMenu;
         import com.aaa.fyp.R;
         import com.database.ListActivityClassHistory;
         import com.database.Review;
+        import com.database.searchByName;
 
 public class BaseActivity extends Activity {
 
@@ -171,7 +172,7 @@ public class BaseActivity extends Activity {
                 startActivity(new Intent(this, Review.class));
                 break;
             case 2:// Search by name
-                //startActivity(new Intent(this, Item3Activity.class));
+                startActivity(new Intent(this, searchByName.class));
                 break;
             case 3: //Settings
                 //startActivity(new Intent(this, Item4Activity.class));
