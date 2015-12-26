@@ -112,6 +112,7 @@ public class searchResult extends Activity {
                 //to change query please refer to the function getProducts
                 //region Prepare List from parse data
                 Products = dbObject.getProducts(Barcode);
+
                 Products.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> scoreList, ParseException e) {
                         globalScoreList = scoreList;

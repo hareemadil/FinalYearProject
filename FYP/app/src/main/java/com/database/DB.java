@@ -156,6 +156,7 @@ public class DB {
      //   ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product");
         //query.whereStartsWith("Name", "" + pName);
         query.whereMatches("Name", "(" + pName + ")", "i");
+        query.orderByAscending("Price");
         //query2.whereMatchesKeyInQuery("Subcategory", "Subcategory", query.whereMatches("Name", "(" + pName + ")", "i"));
         if(pName.compareTo("nothing") == 0 ){
             Toast.makeText(mainContext.getApplicationContext(), "Nothing found for this barcode!!",
