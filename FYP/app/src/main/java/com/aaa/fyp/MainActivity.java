@@ -27,8 +27,6 @@ public class MainActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.home_screen, frameLayout);
         mDrawerList.setItemChecked(position, true);
         setTitle(listArray[position]);
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
 
     }
 

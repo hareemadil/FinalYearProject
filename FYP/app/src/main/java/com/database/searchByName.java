@@ -228,11 +228,14 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
 
             menu.add(1, 1, 1, "Review");
             menu.add(1, 2, 2, "Go to link");
+            System.out.println("somethting");
+
         }
 
         //Context Menu mein item clicked tou new activity khulnay ka code.
         @Override
         public boolean onContextItemSelected(MenuItem item) {
+            System.out.println("item id ++"+item.getItemId());
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int index = info.position;
             System.out.println("item id ++"+item.getItemId());
