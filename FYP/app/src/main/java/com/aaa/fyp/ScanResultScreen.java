@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.SlideMenu.BaseActivity;
+import com.database.searchResult;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -213,8 +214,12 @@ public class ScanResultScreen extends BaseActivity {
     public void displayResults(View view){
      //   Intent newScreen = new Intent("com.database.searchResult");
        // newScreen.putExtra("Product", Barcode);
-        finish();
+       // finish();
        // startActivity(newScreen);
+        Intent newScreen = new Intent(ScanResultScreen.this,searchResult.class);
+        newScreen.putExtra("Product", Barcode);
+        finish();
+        startActivity(newScreen);
     }
 
 }

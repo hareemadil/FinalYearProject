@@ -51,19 +51,19 @@ public class DB {
         try {
             Cursor c = mDbAdapter.getItemByBarcode(barcode);
             if (c.getCount() == 0) {
-                Toast.makeText(mainContext.getApplicationContext(), "Wrong barcode",
-                        Toast.LENGTH_LONG).show();
+                //Toast.makeText(mainContext.getApplicationContext(), "Wrong barcode",
+                  //      Toast.LENGTH_LONG).show();
 
             } else {
                 c = mDbAdapter.getProductName(barcode);
 
                 if (c.getCount() == 0) {
 
-                    Toast.makeText(mainContext.getApplicationContext(), "Some Error",
-                            Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mainContext.getApplicationContext(), "Some Error",
+                      //      Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(mainContext.getApplicationContext(), "Product Found",
-                            Toast.LENGTH_LONG).show();
+                   // Toast.makeText(mainContext.getApplicationContext(), "Product Found",
+                    //        Toast.LENGTH_LONG).show();
 
                     pName = c.getString(0);
                     previousLayerFailed = false;

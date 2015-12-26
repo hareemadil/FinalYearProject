@@ -25,6 +25,7 @@ import java.util.List;
 
 public class searchByName extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
+    //region Custom Variables
     private Spinner Brandspinner;
     private Spinner Productspinner;
     ListView list;
@@ -73,6 +74,8 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
             "Xiaomi"
             };
 
+    //endregion
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -81,6 +84,8 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
        // getLayoutInflater().inflate(R.layout.search_by_name, frameLayout);
         mDrawerList.setItemChecked(position, true);
         setTitle(listArray[position]);
+
+        //region Variable Initialization
         mobileName.add("Mobile Name");
         Brandspinner = (Spinner)findViewById(R.id.brand);
         Productspinner = (Spinner)findViewById(R.id.product);
@@ -99,7 +104,7 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
         dataAdapter.notifyDataSetChanged();
         Productspinner.setAdapter(dataAdapter);
         Productspinner.setOnItemSelectedListener(new productListListner());
-
+        //endregion
 
     }
 
@@ -112,7 +117,6 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("MobileProd");
                 query.whereMatches("brand", "(" + BrandsArray[position] + ")", "i");
                 getProducts(query);
-                //System.out.println("ok ok ok ok ===== "+ProductsArray.get(0));
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                         android.R.layout.simple_spinner_item, mobileName);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -166,10 +170,12 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
             ParseQuery<ParseObject> query = ParseQuery.getQuery("MobileProd");
             query.whereMatches("pname", "(" + mobileName.get(pos) + ")", "i");
 
+            //region Create List from Parse data
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> scoreList, ParseException e) {
                     globalScoreList = scoreList;
                     if (e == null) {
+                        //region Arrays declaration for List View
                         String[] itemname = new String[scoreList.size()];
                         String[] Prices = new String[scoreList.size()];
                         Integer[] imgid= new Integer[scoreList.size()];
@@ -186,8 +192,8 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
                         webstores.add("shoprex.com");
                         webstores.add("pakmobileprice.com");
                         webstores.add("mobilephone.pk");
-
-
+                        //endregion
+                        //region store data from parse in Arrays
                         for (int i = 0; i < scoreList.size(); i++) {
                             System.out.println(scoreList.get(i).get("pname") + " /// "
                                     + scoreList.get(i).get("price")+ " ///"
@@ -200,17 +206,21 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
                             links.add(scoreList.get(i).get("link").toString());
 
                         }
+                        //endregion
+                        //region Create listView Adapter using custom arrays
                         CustomListViewsSarchByName adapter=new CustomListViewsSarchByName(searchByName.this,itemname, imgid,Prices,Store);
-
                         list.setAdapter(adapter);
+                        //endregion
+
                         registerForContextMenu(list);
-                       } else {
+
+                    } else {
                         System.out.println("Error: " + e.getMessage());
                     }
                  }
 
             });
-
+            //endregion
 
         }
 
@@ -222,7 +232,7 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
 
 
         @Override
-//Context menu display krnay ka code.
+        //Context menu display.
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
 
@@ -232,7 +242,7 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
 
         }
 
-        //Context Menu mein item clicked tou new activity khulnay ka code.
+        //Context Menu mein item clicked
         @Override
         public boolean onContextItemSelected(MenuItem item) {
             System.out.println("item id ++"+item.getItemId());
