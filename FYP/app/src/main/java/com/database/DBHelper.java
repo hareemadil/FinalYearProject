@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Products";
     private static final int DATABASE_VERSION = 2;
-    private static final String Table1 = "CREATE TABLE product_barcode (barcode text primary key,PName text not null);";//,fname text,lname text,ad text,com text);";
+    private static final String Table1 = "CREATE TABLE product_barcode (barcode text primary key,PName text not null,weight text null);";//,fname text,lname text,ad text,com text);";
 
 
     public DBHelper(Context context) {
@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-        System.out.println("droping product barcode for some reason");
+
         db.execSQL("DROP TABLE IF EXISTS product_barcode");
         onCreate(db);
 

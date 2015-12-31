@@ -27,7 +27,7 @@ public class historyDB {
         this.mainContext =mainCtx;
         mDbAdapter = new HistoryDBAdapter(mainContext);
         mDbAdapter.open();
-        popuateSampleData();
+        try{popuateSampleData();}catch(Exception e){e.printStackTrace();}
     }
 
     public Cursor getHistory() {
@@ -42,21 +42,13 @@ public class historyDB {
 
     private void popuateSampleData(){
         Cursor c = mDbAdapter.GetCount();
-        if(c.getCount() <= 7){
+        if(c.getCount() <= 2){
 
             //saveSearchRecord("012000014338", "Aquafina");
             saveSearchRecord("8964000101957", "Slice Mango");
             saveSearchRecord("8712561315906", "Dove natural touch");
-            saveSearchRecord("8414135625748", "Nike woman");
-            saveSearchRecord("671866116817", "Potato Sticks");
-            saveSearchRecord("6281036113009", "Lays salted");
-            // saveSearchRecord("695240101428", "Milo");
-            saveSearchRecord("695240101428", "Dolar ink ");
-            saveSearchRecord("3800020456323", "Kitkat Chunky");
-            saveSearchRecord("8961008208114", "Milo 200ml");
 
-            System.out.println("succesfully populated local history database ");
-            System.out.println("---------------------->added ");
+            // saveSearchRecord("695240101428", "Milo");
 
         }
 
