@@ -129,7 +129,7 @@ public class searchResult extends BaseActivity {
                             progresBar.setVisibility(View.GONE);
                             list.setVisibility(View.VISIBLE);
                         }else{ //if nothing was found
-                            
+
                             textview.setText("NOTHING FOUND");
                             progresBar.setVisibility(View.GONE);
                         }
