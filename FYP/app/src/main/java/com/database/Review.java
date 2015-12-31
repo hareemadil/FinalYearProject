@@ -18,12 +18,7 @@ import android.widget.Toast;
 
 import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.R;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
-import java.util.List;
 
 public class Review extends BaseActivity{
 
@@ -68,24 +63,8 @@ public class Review extends BaseActivity{
         PName.setText(name);
         PStore.setText(store);
 
-        ParseQuery<ParseObject> pname = ParseQuery.getQuery("Review");
-        pname.whereEqualTo("name", name);
-        //pname.whereEqualTo("store", varialbe2);
-
-        pname.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> scoreList, ParseException e) {
-                List<ParseObject> globalScoreList = scoreList;
-                if (e == null) {
-                    for (int i = 0; i < scoreList.size(); i++) {
-                        scoreList.get(i).get("colname").toString();
-                    }
 
 
-                } else {
-                    System.out.println("Error: " + e.getMessage());
-                }
-            }
-        });
     }
 
 

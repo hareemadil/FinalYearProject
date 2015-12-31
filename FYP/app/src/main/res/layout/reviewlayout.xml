@@ -54,11 +54,12 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/SubmitReview"
+        android:layout_marginBottom="87dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/submit" android:clickable="true"
         android:background="@android:color/transparent"
-        android:onClick="ReviewSubmit"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:onClick="ReviewSubmit"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -106,13 +107,4 @@
         android:layout_above="@+id/Name"
         android:layout_alignLeft="@+id/textView3"
         android:layout_alignStart="@+id/textView3" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listViewReview"
-        android:layout_below="@+id/editReview"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_marginTop="55dp"
-        android:layout_toRightOf="@+id/textView2" />
 </RelativeLayout>
