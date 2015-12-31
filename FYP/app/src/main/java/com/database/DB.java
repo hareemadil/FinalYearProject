@@ -553,9 +553,9 @@ public class DB {
             registerProduct("7702018037896","Gillette Mach3 Cartridges Sensitive (Pack of 4)"," ");
             registerProduct("7702018877591","Gillette Cartridges Fusion (Pack of 4)"," ");
             registerProduct("788821000866","Shan Chutney Mango ","400g");
-            registerProduct("788821001252","Shan Recipes Bombay Biryani ","120g");
+            registerProduct("788821001252","Shan Recipes Bombay Biryani","120g");
             registerProduct("788821001269","Shan Recipes Nihari ","120g");
-            registerProduct("788821001276","Shan Recipes Biryani ","100g");
+            registerProduct("788821001276","Shan Recipes Biryani","100g");
             registerProduct("788821001283","Shan Recipes Karahi/Fry Gosht ","100g");
             registerProduct("788821001290","Shan Recipes Korma ","100g");
             registerProduct("788821001306","Shan Recipes Achar Gosht ","100g");
@@ -590,7 +590,7 @@ public class DB {
             registerProduct("788821150127","Shan Recipes Biryani ","50g");
             registerProduct("788821150134","Shan Recipes Punjabi Yakhni Pilau ","50g");
             registerProduct("788821150141","Shan Recipes Pilau Biryani ","50g");
-            registerProduct("788821150189","Shan Recipes Bombay Biryani ","65g");
+            registerProduct("788821150189","Shan Recipes Bombay Biryani","65g");
             registerProduct("788821150196","Shan Receipes fish Biryani ","50g");
             registerProduct("788821150202","Shan Recipes Memon Mutton Biryani ","60g");
             registerProduct("788821150219","Shan Recipes Sindhi Biryani ","65g");
@@ -877,10 +877,10 @@ public class DB {
             registerProduct("8961008203744","Nestle Fruita Vitals Red Grapes","1L");
             registerProduct("8961008203782","NESTLE FRUITA VITALS - PEACH ()","1L");
             registerProduct("8961008205113","Nestle Mineral Water 1.5tr","1500ML");
-            registerProduct("8961008205137","Nestle Mineral Water ","500ml");
+            registerProduct("8961008205137","Nestle Mineral Water","500ml");
             registerProduct("8961008206400","Milk Pak Milk tra","1l");
-            registerProduct("8961008207421","Everyday Tea Whitener ","1kg");
-            registerProduct("8961008270029","Nestle Mineral Water ","500ml");
+            registerProduct("8961008207421","Everyday Tea Whitener","1kg");
+            registerProduct("8961008270029","Nestle Mineral Water","500ml");
             registerProduct("8961014000320","Lifebuoy Hand Wash Care Pump ","220ml");
             registerProduct("8961014000337","Lifebuoy Hand Wash Total Pump ","220ml");
             registerProduct("8961014000573","Lifebuoy Hand Wash Care Pouch ","200ml");
