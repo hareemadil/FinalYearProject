@@ -7,9 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/brand"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -17,20 +15,18 @@
         android:id="@+id/product"
         android:layout_below="@+id/brand"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/product">
 
         <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/activity_list_activity_class"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/product"
+            layout="@layout/activity_list_activity_class_searchbyname"
             android:layout_gravity="center_horizontal|top" />
-    </FrameLayout>
+
 
 
 </RelativeLayout>

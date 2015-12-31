@@ -3,6 +3,7 @@ package com.database;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
@@ -27,32 +30,42 @@ public class searchResult extends Activity {
     DB dbObject;
     ParseQuery<ParseObject> Products;
     List<ParseObject> globalScoreList;
+    TextView textview;
+    ProgressBar progresBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_activity_class);
+        dbObject=  new DB(this);
+        //
+        textview = (TextView) findViewById(R.id.waitingText);
+        progresBar = (ProgressBar)findViewById(R.id.progressBar);
+        list=(ListView)findViewById(R.id.list);
 
+        textview.setVisibility(View.VISIBLE);
+        progresBar.setVisibility(View.VISIBLE);
+        list.setVisibility(View.GONE);
+
+        //Progress LoadingScreen = new Progress();
+        //LoadingScreen.execute();
+        //region SearchResult Population
         Intent myIntent = getIntent(); // gets the previously created intent
-        Intent nextScreen = new Intent("com.aaa.fyp.ScanResultScreen");
-        nextScreen.putExtra("barcode",myIntent.getStringExtra("barcode"));
-        nextScreen.putExtra("format", myIntent.getStringExtra("format"));
-        //finish();
-        startActivity(nextScreen);
         String Barcode = myIntent.getStringExtra("Product");
         System.out.println("in list view ---- >" + Barcode);
 
         try{
-            dbObject=  new DB(this);
+
             //to change query please refer to the function getProducts
+            //region Prepare List from parse data
             Products = dbObject.getProducts(Barcode);
-            System.out.println("SUCCESSSSS DAMN &@!#$%^&*(**&^%$## s");
+
             Products.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> scoreList, ParseException e) {
                     globalScoreList = scoreList;
                     if (e == null) {
-                        // ArrayList<String> results = new ArrayList<>();
+                        //region Arrays for Custom List View
                         String[] itemname = new String[scoreList.size()];
                         String[] Prices = new String[scoreList.size()];
                         //will have to work on how to make these logo dynamic
@@ -64,7 +77,8 @@ public class searchResult extends Activity {
                                 R.mipmap.rashan_lelo,
                                 R.mipmap.shoprex_logo,
                                 R.mipmap.cartpk,
-                                R.mipmap.qne_logo//qne
+                                R.mipmap.qne_logo,//qne
+                                R.mipmap.aaramshop
                         };
                         ArrayList<String> webstores = new ArrayList<String>();
                         webstores.add("qne.com.pk");
@@ -75,28 +89,34 @@ public class searchResult extends Activity {
                         webstores.add("shoprex.com");
                         webstores.add("cartpk.com");
                         webstores.add("qne.pk");
+                        webstores.add("AaramShop.pk");
 
 
                         Integer[] imgid= new Integer[scoreList.size()];
+                        //endregion
 
                         //populates the list of products
                         for (int i = 0; i < scoreList.size(); i++) {
 
                             //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
                             //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
-                            Prices[i] = scoreList.get(i).get("Price")+"";
-                            itemname[i] = scoreList.get(i).get("Name")+"";
-                            imgid[i]= imgid2[webstores.indexOf(scoreList.get(i).get("Store"))];
-                            links.add(scoreList.get(i).get("link").toString());
-                            System.out.println("Product name test print----->"+scoreList.get(i).get("Name"));
+                            Prices[i] = scoreList.get(i).get("price")+"";
+                            itemname[i] = scoreList.get(i).get("pname")+"";
+                            try{ imgid[i]= imgid2[webstores.indexOf(scoreList.get(i).get("store"))];}catch(Exception ex){
+                                System.out.println("error: i = "+i+" store = "+scoreList.get(i).get("store"));
+                            }
+                            links.add(scoreList.get(i).get("link1").toString());
+                            System.out.println("Product name test print----->"+scoreList.get(i).get("pname"));
                         }
 
                         ListViewItems adapter=new ListViewItems(searchResult.this,itemname, imgid,Prices);
-                        list=(ListView)findViewById(R.id.list);
+
                         list.setAdapter(adapter);
                         registerForContextMenu(list);
                         System.out.println("reached here 123");
-
+                        textview.setVisibility(View.GONE);
+                        progresBar.setVisibility(View.GONE);
+                        list.setVisibility(View.VISIBLE);
 
                     } else {
                         System.out.println("Error: " + e.getMessage());
@@ -107,34 +127,26 @@ public class searchResult extends Activity {
                 }
 
             });
- }catch(Exception e)
-        {e.printStackTrace();}
+
+            //endregion
+
+        }catch(Exception e){e.printStackTrace();}
+
+        //endregion
 
 
     }
 
-
     @Override
-//Context menu display krnay ka code.
+//Context menu display
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-
-        //AdapterView.AdapterContextMenuInfo aInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
-
-        // We know that each row in the adapter is a Map
-
-        //
-        // HashMap map =  (HashMap) list.getItemAtPosition(aInfo.position);
-
-      //  menu.setHeaderTitle("Options for " + map.get("itemname"));
-        System.out.println("something happened here i guess");
-
         menu.add(1, 1, 1, "Review");
         menu.add(1, 2, 2, "Go to link");
         menu.add(1, 3, 3, "View Similar Products");
     }
 
-//Context Menu mein item clicked tou new activity khulnay ka code.
+    //Context Menu mein item clicked
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -143,8 +155,8 @@ public class searchResult extends Activity {
             case 1:
                 Intent myIntent = new Intent(getApplicationContext(), Review.class);
                 ParseObject product = globalScoreList.get(index);
-                String name =  (String)product.get("Name");
-                String store = (String)product.get("Store");
+                String name =  (String)product.get("pname");
+                String store = (String)product.get("store");
                 System.out.println("name : " + name + ", store : " + store);
 
                 myIntent.putExtra("com.aaa.fyp.ProductName", name);
@@ -158,14 +170,38 @@ public class searchResult extends Activity {
                 startActivity(Browser); // Go go go!
                 break;
             case 3:
+                ParseObject productName = globalScoreList.get(index);
+                String ProductName =  (String)productName.get("pname");
                 Intent similarProductsActivity = new Intent(getApplicationContext(), similarProducts.class); // Create a new intent - stating you want to 'view something'
-                similarProductsActivity.putExtra("productName",dbObject.pName);  // Add the url data (allowing android to realise you want to open the browser)
+                similarProductsActivity.putExtra("productName",ProductName);  // Add the url data (allowing android to realise you want to open the browser)
                 startActivity(similarProductsActivity); // Go go go!
                 break;
         }
         return super.onContextItemSelected(item);
     }
 
+
+
+    private class Progress extends AsyncTask<Void, Void, Void>  {
+        protected void onPreExecute() {
+            textview.setVisibility(View.VISIBLE);
+            progresBar.setVisibility(View.VISIBLE);
+        }
+
+        protected Void doInBackground(Void... params) {
+
+            return null;
+        }
+
+
+        protected void onPostExecute(Void content) {
+            // hide progress dialog
+            // show the content
+
+        }
+
+
+    }
 }
 
 

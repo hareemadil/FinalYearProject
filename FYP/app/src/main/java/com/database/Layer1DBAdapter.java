@@ -10,6 +10,7 @@ public class Layer1DBAdapter {
     private static final String DATABASE_TABLE = "product_barcode";
     public static final String Barcode = "barcode";
     public static final String ProductName = "PName";
+    public static final String Weight = "weight";
     public static final String KEY_Pass = "pass";
     public static final String KEY_fName = "fname";
     public static final String KEY_lName = "lname";
@@ -35,10 +36,11 @@ public class Layer1DBAdapter {
         mDbHelper.close();
     }
 
-    public long createTask(String barcode, String pName){//, String fname, String lname, String ad, String com) {
+    public long createTask(String barcode, String pName,String weight){//, String fname, String lname, String ad, String com) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(Barcode, barcode);
         initialValues.put(ProductName, pName);
+        initialValues.put(Weight, weight);
         //  initialValues.put(KEY_fName, fname);
         // initialValues.put(KEY_lName, lname);
         // initialValues.put(KEY_accDetils, ad);
@@ -51,10 +53,11 @@ public class Layer1DBAdapter {
         return mDb.delete(DATABASE_TABLE, Barcode + " = " + id, null) > 0;
     }
 
-    public boolean updateProduct( String barcode, String pName){//, String fname, String lname, String ad, String com) {
+    public boolean updateProduct( String barcode, String pName,String weight){//, String fname, String lname, String ad, String com) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(Barcode, barcode);
         initialValues.put(ProductName, pName);
+        initialValues.put(Weight, weight);
         return mDb.update(DATABASE_TABLE, initialValues, Barcode + " = " + ProductName, null) > 0;
     }
 
@@ -67,7 +70,7 @@ public class Layer1DBAdapter {
     }
 
     public Cursor fetchAllProducts() {
-        return mDb.query(DATABASE_TABLE, new String[]{Barcode, ProductName}, null, null, null, null, null);
+        return mDb.query(DATABASE_TABLE, new String[]{Barcode, ProductName,Weight}, null, null, null, null, null);
     }
 
     public Cursor getItemByBarcode(String barcode) {
@@ -79,7 +82,7 @@ public class Layer1DBAdapter {
     }
 
     public Cursor getProductName(String barcode) {
-        String[] columns = new String[]{ProductName};
+        String[] columns = new String[]{ProductName,Weight};
 
         Cursor cursor = mDb.query(DATABASE_TABLE, columns, Barcode + " = '" + barcode + "'", null, null, null, null);
         cursor.moveToFirst();
@@ -102,7 +105,7 @@ public class Layer1DBAdapter {
     }
     public String getData() {
         // TOD.O Auto-generated method stub
-        String[] columns = new String[]{Barcode, ProductName, KEY_Pass, KEY_fName, KEY_lName, KEY_accDetils, KEY_Comments};
+        String[] columns = new String[]{Barcode, ProductName, Weight, KEY_fName, KEY_lName, KEY_accDetils, KEY_Comments};
         Cursor c = mDb.query(DATABASE_TABLE, columns, null, null, null, null, null);
         String result = "";
 

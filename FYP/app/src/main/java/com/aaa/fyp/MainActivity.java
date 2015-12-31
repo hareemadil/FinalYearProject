@@ -27,8 +27,6 @@ public class MainActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.home_screen, frameLayout);
         mDrawerList.setItemChecked(position, true);
         setTitle(listArray[position]);
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
 
     }
 
@@ -43,25 +41,5 @@ public class MainActivity extends BaseActivity {
 
 
 
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-*//*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }
