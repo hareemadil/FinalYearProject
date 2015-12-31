@@ -79,9 +79,9 @@ public class searchByName extends BaseActivity implements AdapterView.OnItemSele
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_by_name);
+        //setContentView(R.layout.search_by_name);
 
-       // getLayoutInflater().inflate(R.layout.search_by_name, frameLayout);
+        getLayoutInflater().inflate(R.layout.search_by_name, frameLayout);
         mDrawerList.setItemChecked(position, true);
         setTitle(listArray[position]);
 

@@ -63,7 +63,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
                 }
             }
 
-            Toast.makeText(SimpleScannerActivity.this,gmail,Toast.LENGTH_LONG).show();
+            //Toast.makeText(SimpleScannerActivity.this,gmail,Toast.LENGTH_LONG).show();
 
             Log.v(TAG, rawResult.getText()); // Prints scan results
            // Toast.makeText(SimpleScannerActivity.this, rawResult.toString() + "  WOW scanned", Toast.LENGTH_LONG).show();

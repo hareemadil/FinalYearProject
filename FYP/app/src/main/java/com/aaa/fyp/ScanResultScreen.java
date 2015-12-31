@@ -53,7 +53,7 @@ public class ScanResultScreen extends BaseActivity {
 
         getLayoutInflater().inflate(R.layout.scan_screen_with_button, frameLayout);
         mDrawerList.setItemChecked(position, true);
-        setTitle(listArray[position]);
+        setTitle("Scan Result");
         ViewGroup layout = (ViewGroup) findViewById(R.id.scanScreenWithButton);
      //   layout.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
         //layout.setOrientation(LinearLayout.VERTICAL);

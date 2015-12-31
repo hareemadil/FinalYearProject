@@ -26,8 +26,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:padding="2dp"
 
-        android:layout_alignRight="@+id/store"
-        android:layout_alignEnd="@+id/store" />
+        android:layout_alignRight="@+id/Date"
+        android:layout_alignEnd="@+id/Date" />
 
     <TextView
         android:id="@+id/itemHistory"
@@ -43,7 +43,7 @@
         android:layout_toEndOf="@+id/linearLayout" />
 
     <TextView
-        android:id="@+id/store"
+        android:id="@+id/Date"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Date"

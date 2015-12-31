@@ -34,7 +34,7 @@ public class CustomListViewsSarchByName extends ArrayAdapter<String> {
         TextView PriceTxt = (TextView) rowView.findViewById(R.id.price);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
         TextView ProductNameTxt = (TextView) rowView.findViewById(R.id.pname);
-        TextView StoreNameTxt = (TextView) rowView.findViewById(R.id.store);
+        TextView StoreNameTxt = (TextView) rowView.findViewById(R.id.Date);
 
         PriceTxt.setText( Price[position]);
         imageView.setImageResource(imgid[position]);

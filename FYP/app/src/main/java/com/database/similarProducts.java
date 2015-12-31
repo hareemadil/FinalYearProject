@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -22,7 +23,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class similarProducts extends Activity {
+public class similarProducts extends BaseActivity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
@@ -36,7 +37,10 @@ public class similarProducts extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_activity_class);
+       // setContentView(R.layout.activity_list_activity_class);
+        getLayoutInflater().inflate(R.layout.activity_list_activity_class, frameLayout);
+        mDrawerList.setItemChecked(position, true);
+        setTitle("Similar Products");
         textview = (TextView) findViewById(R.id.waitingText);
         progresBar = (ProgressBar)findViewById(R.id.progressBar);
         list=(ListView)findViewById(R.id.list);

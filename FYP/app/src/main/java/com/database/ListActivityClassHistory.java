@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -21,7 +22,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivityClassHistory extends Activity {
+public class ListActivityClassHistory extends BaseActivity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
@@ -31,8 +32,10 @@ public class ListActivityClassHistory extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_activity_class_history);
-
+        //setContentView(R.layout.activity_list_activity_class_history);
+        getLayoutInflater().inflate(R.layout.activity_list_activity_class_history, frameLayout);
+        mDrawerList.setItemChecked(position, true);
+        setTitle(listArray[position]);
         try{
             HistoryDbObject=  new historyDB(this);
             //to change query please refer to the function getProducts

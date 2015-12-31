@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.R;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -23,7 +24,7 @@ import com.parse.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class searchResult extends Activity {
+public class searchResult extends BaseActivity {
 
     ListView list;
     final ArrayList<String> links  = new ArrayList<>();
@@ -37,7 +38,10 @@ public class searchResult extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_activity_class);
+       // setContentView(R.layout.activity_list_activity_class);
+        getLayoutInflater().inflate(R.layout.activity_list_activity_class, frameLayout);
+        mDrawerList.setItemChecked(position, true);
+        setTitle("Search result");
         dbObject=  new DB(this);
         //
         textview = (TextView) findViewById(R.id.waitingText);

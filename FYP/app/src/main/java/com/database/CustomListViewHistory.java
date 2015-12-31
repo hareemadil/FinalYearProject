@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.aaa.fyp.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class CustomListViewHistory extends ArrayAdapter<String> {
 
 
@@ -31,9 +34,11 @@ public class CustomListViewHistory extends ArrayAdapter<String> {
         TextView PriceTxt = (TextView) rowView.findViewById(R.id.itemHistory);
       //  ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         TextView ProductNameTxt = (TextView) rowView.findViewById(R.id.textView1History);
-
+        String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        TextView date = (TextView) rowView.findViewById(R.id.Date);
         PriceTxt.setText("Name: "+ Pname[position]);
         ProductNameTxt.setText(itemname[position]);
+        date.setText(formattedDate);
         return rowView;
 
     };
