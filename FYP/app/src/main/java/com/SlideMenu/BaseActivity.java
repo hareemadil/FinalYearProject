@@ -227,10 +227,11 @@ public class BaseActivity extends Activity {
     /* We can override onBackPressed method to toggle navigation drawer*/
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(mDrawerList)){
+      /*  if(mDrawerLayout.isDrawerOpen(mDrawerList)){
             mDrawerLayout.closeDrawer(mDrawerList);
         }else {
             mDrawerLayout.openDrawer(mDrawerList);
-        }
+        }*/
+        finish();
     }
 }

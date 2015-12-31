@@ -21,45 +21,35 @@
         android:text="Email Address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Date"
+        android:id="@+id/Store"
         android:visibility="visible"
         android:textColor="#000000"
         android:layout_alignBottom="@+id/editEmail"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
+        android:layout_marginTop="-10dp"
         android:ems="10"
         android:id="@+id/editReview"
         android:editable="true"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/editEmail"
-        android:layout_alignStart="@+id/editEmail" />
-
-    <TextView
-        android:text="Review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:visibility="visible"
-        android:layout_alignBottom="@+id/editReview"
-
-        />
+        android:layout_alignLeft="@+id/SubmitReview"
+        android:layout_alignStart="@+id/SubmitReview" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/SubmitReview"
-        android:layout_marginBottom="87dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:src="@drawable/submit" android:clickable="true"
         android:background="@android:color/transparent"
-        android:onClick="ReviewSubmit"/>
+        android:onClick="ReviewSubmit"
+        android:layout_below="@+id/editReview"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -80,15 +70,15 @@
         android:visibility="visible"
         android:textColor="#000000"
         android:layout_above="@+id/editEmail"
-        android:layout_alignLeft="@+id/Date"
-        android:layout_alignStart="@+id/Date" />
+        android:layout_alignLeft="@+id/Store"
+        android:layout_alignStart="@+id/Store" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="none"
         android:ems="10"
-        android:id="@+id/Store"
+        android:id="@+id/Store2"
         android:editable="false"
         android:autoText="false"
         android:layout_above="@+id/Name"
@@ -105,6 +95,27 @@
         android:visibility="visible"
         android:textColor="#000000"
         android:layout_above="@+id/Name"
-        android:layout_alignLeft="@+id/Date"
-        android:layout_alignStart="@+id/Date" />
+        android:layout_alignLeft="@+id/Store"
+        android:layout_alignStart="@+id/Store" />
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/SubmitReview"
+        layout="@layout/activity_list_activity_class_reviews"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:visibility="visible"
+        android:textColor="#000000"
+        android:layout_below="@+id/editEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

@@ -13,17 +13,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.SlideMenu.BaseActivity;
 import com.aaa.fyp.R;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Review extends BaseActivity{
 
     String name;
     String store;
+    ListView listUI;
 
 
     @Override
@@ -47,6 +55,8 @@ public class Review extends BaseActivity{
                 break;
             }
         }
+
+        listUI=(ListView)findViewById(R.id.listSearchByName);
         EditText editEmail =(EditText)findViewById(R.id.editEmail);
         editEmail.setText(gmail);
 
@@ -59,13 +69,64 @@ public class Review extends BaseActivity{
 
         TextView PName = (TextView) findViewById(R.id.Name);
 
-        TextView PStore = (TextView) findViewById(R.id.Store);
+        TextView PStore = (TextView) findViewById(R.id.Store2);
         PName.setText(name);
         PStore.setText(store);
 
 
+        try{
+            DB dbObject = new DB(this);
+            //to change query please refer to the function getProducts
+            ParseQuery<ParseObject> Products = dbObject.getReviews(name, store);
+
+            Products.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> scoreList, ParseException e) {
+                    List<ParseObject> globalScoreList = scoreList;
+                    if (e == null) {
+
+                        if(scoreList.size() >= 1 &&  scoreList.size() < 100 ) {
+                            String[] itemname = new String[scoreList.size()];
+                            String[] Store = new String[scoreList.size()];
+                            String[] reviews = new String[scoreList.size()];
+
+
+                            //populates the list of products
+                            for (int i = 0; i < scoreList.size(); i++) {
+
+                                 Store[i] = scoreList.get(i).get("store") + "";
+                                 itemname[i] = scoreList.get(i).get("Name") + "";
+                                 reviews[i] = scoreList.get(i).get("Review") + "";
+
+
+                            }
+
+                            CustomListViewsReview adapter = new CustomListViewsReview(Review.this, itemname,reviews, Store);
+                            listUI=(ListView)findViewById(R.id.listSearchByName);
+                            listUI.setAdapter(adapter);
+
+
+                        }
+                        else{
+                            Toast.makeText(Review.this, "No Reviews found", Toast.LENGTH_LONG).show();
+                            System.out.println("Reviews not found!!");
+
+                        }
+                    } else {
+                        System.out.println("Error: " + e.getMessage());
+
+                    }
+
+
+                }
+
+            });
+        }catch(Exception e)
+        {e.printStackTrace();}
+
 
     }
+
+
 
 
 

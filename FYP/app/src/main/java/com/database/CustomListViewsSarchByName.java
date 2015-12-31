@@ -31,10 +31,10 @@ public class CustomListViewsSarchByName extends ArrayAdapter<String> {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.activity_list_view_searchbyname, null, true);
 
-        TextView PriceTxt = (TextView) rowView.findViewById(R.id.price);
+        TextView PriceTxt = (TextView) rowView.findViewById(R.id.Review);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
         TextView ProductNameTxt = (TextView) rowView.findViewById(R.id.pname);
-        TextView StoreNameTxt = (TextView) rowView.findViewById(R.id.Date);
+        TextView StoreNameTxt = (TextView) rowView.findViewById(R.id.Store);
 
         PriceTxt.setText( Price[position]);
         imageView.setImageResource(imgid[position]);

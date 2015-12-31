@@ -28,11 +28,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:padding="2dp"
 
-        android:layout_below="@+id/Date"
+        android:layout_below="@+id/Store"
         android:layout_toRightOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/price"
+        android:id="@+id/Review"
         android:layout_width="380dp"
         android:layout_height="30dp"
         android:text="Price"
@@ -44,7 +44,7 @@
         android:layout_toRightOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/Date"
+        android:id="@+id/Store"
         android:layout_width="250dp"
         android:layout_height="30dp"
         android:text="Store"

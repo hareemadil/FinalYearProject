@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.SlideMenu.BaseActivity;
+import com.database.DB;
 import com.parse.Parse;
 
 public class Splash extends Activity {
@@ -24,18 +25,20 @@ public class Splash extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash);
+
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
 
         Thread timer = new Thread() {
             public void run() {
                 try{
-                    sleep(4000);
+                    sleep(3000);
                 }
                 catch(InterruptedException e){
                     e.printStackTrace();
                 }
                 finally{
+                    try{new DB(Splash.this).popuateSampleData();}catch(Exception e){e.printStackTrace();}
                     Intent landing = new Intent("com.aaa.fyp.MainActivity");
                     startActivity(landing);
                 }

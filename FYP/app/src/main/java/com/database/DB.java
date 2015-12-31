@@ -13,6 +13,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +21,7 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -34,6 +36,7 @@ public class DB {
     private String parsedHtmlNode = null;
 
     historyDB HistoryDbObject;
+    private boolean websiteLayers=false;
 
     public DB(Context mainCtx){
 
@@ -41,11 +44,12 @@ public class DB {
         mDbAdapter = new Layer1DBAdapter(mainContext);
         mDbAdapter.open();
 
+
         HistoryDbObject=  new historyDB(mainCtx);
 
        // Parse.enableLocalDatastore(mainContext);
        // Parse.initialize(mainContext, "P41DF2gmqCqpx4l130YCTKDmUKkr6qAiV12dzPH3", "b3Hyzg2x3iLBsIbRTAzAcnS49WqWQR1wHohWTyAS");
-        popuateSampleData();
+
     }
 
     private void getProductName(String barcode) {
@@ -55,21 +59,21 @@ public class DB {
         try {
             Cursor c = mDbAdapter.getItemByBarcode(barcode);
             if (c.getCount() == 0) {
-                //Toast.makeText(mainContext.getApplicationContext(), "Wrong barcode",
-                  //      Toast.LENGTH_LONG).show();
+                Toast.makeText(mainContext.getApplicationContext(), "Barcode not found in LocalDB",
+                       Toast.LENGTH_LONG).show();
 
             } else {
                 c = mDbAdapter.getProductName(barcode);
 
                 if (c.getCount() == 0) {
 
-                    //Toast.makeText(mainContext.getApplicationContext(), "Some Error",
-                      //      Toast.LENGTH_LONG).show();
+                    Toast.makeText(mainContext.getApplicationContext(), "Some Error",
+                           Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(mainContext.getApplicationContext(), "Product Found",
                            Toast.LENGTH_LONG).show();
 
-                    pName = c.getString(0);
+                    pName = c.getString(0).trim();
                     previousLayerFailed = false;
                     return;
                 }
@@ -87,26 +91,32 @@ public class DB {
 
             try {
                 upcLayer2.get();
-                pName = parsedHtmlNode;
+
+                pName = parsedHtmlNode.trim();
+                websiteLayers = true;
                 previousLayerFailed = false;
+                Toast.makeText(mainContext.getApplicationContext(), "Found in UPCDatabase",
+                        Toast.LENGTH_LONG).show();
                 return;
-            } catch (InterruptedException e) {
-                e.printStackTrace();previousLayerFailed = true;
-            } catch (ExecutionException e) {
+            } catch (Exception e) {
                 e.printStackTrace();previousLayerFailed = true;
             }
             // -----------Layer2 end
         }
-        if(previousLayerFailed){}
+        if(previousLayerFailed){
+
+        }
 
 
     }
 
-    private void popuateSampleData(){
+    public void popuateSampleData(){
         Cursor c = mDbAdapter.GetCount();
         if(c.getCount() <= 1100){
 
-            registerProduct("012000014338", "Aquafina Mineral Water", "500ml");
+            // commented out for demonstrating upcdatabase working
+            // registerProduct("012000014338", "Aquafina Mineral Water", "500ml");
+
             registerProduct("012000002090","Aquafina Mineral Water 1.5tr","1500ML");
             registerProduct("12000002946","Pepsi Drink tr","1l");
             registerProduct("12000004070","Pepsi Drink Jumbo 2.tr","25l");
@@ -864,6 +874,7 @@ public class DB {
             registerProduct("8961005100121","Mitchell's Chick Peas ","440g");
             registerProduct("8961005120044","Mitchell's Fruit Cocktail ","850g");
             registerProduct("8961005120075","Mitchell's Pinneapple Rings ","565g");
+            registerProduct("8961008208114","Milo Flavored Milk","200ml");
             registerProduct("8961006010016","Rose Petal Tissue Luxury 100's"," ");
             registerProduct("8961006010054","Rose Petal Tissue Multi Colour 150's"," ");
             registerProduct("8961006010078","Rose Petal Tissue Supreme 100's"," ");
@@ -943,7 +954,7 @@ public class DB {
             registerProduct("8961014106244","Lipton Yellow Label Tea Mega Daane Jar ","475g");
             registerProduct("8961014106251","Lipton Tea Yellow Label Poly Bag ","475g");
             registerProduct("8961014106282","Lipton Yellow Label Tea Bags (50 Tea bags)"," ");
-            registerProduct("8961014106305","Lipton Green Tea Bags (25 Tea Bags)"," ");
+            registerProduct("8961014106305","Lipton Green Tea Bags (25 Tea Bags) "," ");
             registerProduct("8961014106312","Lipton Green Tea Bags Jasmine (25 Tea Bags)"," ");
             registerProduct("8961014106329","Lipton Green Tea Bags Lemon (25 Tea Bags)"," ");
             registerProduct("8961014177510","Knorr Noodle Chatt Patta ","66g");
@@ -1218,7 +1229,7 @@ public class DB {
 
     private void registerProduct(String barcode,String pName,String weight) {
 
-        long id = mDbAdapter.createTask(barcode, pName,weight);
+        long id = mDbAdapter.createTask(barcode, pName, weight);
         if (id > 0) {
             mRowId = id;
 
@@ -1268,7 +1279,7 @@ public class DB {
 
         //endregion
 
-        getProductName(barcode);
+
 
 
 /*
@@ -1279,18 +1290,29 @@ public class DB {
         query.orderByAscending("Price");
 
 
-  */
-        ParseQuery<ParseObject> cid = ParseQuery.getQuery("clusters");
-        ParseQuery<ParseObject> cidPnames = ParseQuery.getQuery("clusters");
+  */    getProductName(barcode);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("AllProducts");
-        //query.whereMatchesKeyInQuery("pname","pname", cidPnames.whereMatchesKeyInQuery("cid","cid", cid.whereMatchesKeyInQuery("pname", "pname", pname.whereMatches("barcode", barcode))));
-        query.whereMatchesKeyInQuery("pname","pname", cidPnames.whereMatchesKeyInQuery("cid","cid",
-                cid.whereEqualTo("pname", pName)));
-               // cid.whereMatches("pname", "(" + pName + ")", "i")));
+        if(websiteLayers){ //found product name from layer other than sqlite
+            List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("AllProducts");
+            queries.add(query.whereMatches("pname", "(" + pName.trim() + ")", "i"));
+            queries.add(query2.whereMatches("pname", "(" + pName.trim() + "())", "i"));
 
+            ParseQuery<ParseObject> superQuery = ParseQuery.or(queries);
+
+            return superQuery;
+        }else { //if barcode in sqlite
+            ParseQuery<ParseObject> cid = ParseQuery.getQuery("clusters");
+            ParseQuery<ParseObject> cidPnames = ParseQuery.getQuery("clusters");
+
+            //query.whereMatchesKeyInQuery("pname","pname", cidPnames.whereMatchesKeyInQuery("cid","cid", cid.whereMatchesKeyInQuery("pname", "pname", pname.whereMatches("barcode", barcode))));
+            query.whereMatchesKeyInQuery("pname", "pname", cidPnames.whereMatchesKeyInQuery("cid", "cid",
+                    cid.whereEqualTo("pname", pName)));
+            // cid.whereMatches("pname", "(" + pName + ")", "i")));
+        }
         //query2.whereMatchesKeyInQuery("Subcategory", "Subcategory", query.whereMatches("Name", "(" + pName + ")", "i"));
         if(pName.compareTo("nothing") == 0 ){
-            Toast.makeText(mainContext.getApplicationContext(), "Nothing found for this barcode!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(mainContext.getApplicationContext(), "Nothing found for this barcode!! Not even on upcdatabase or any other layer", Toast.LENGTH_LONG).show();
             System.out.println("Nothing found for this barcode!!");
         }else{
                try{
@@ -1309,22 +1331,32 @@ public class DB {
         return query;
     }
 
+    public void sqliteClose(){
+        mDbAdapter.close();
+
+
+    }
 
     public ParseQuery<ParseObject> getSimilar(String pName) {
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("AllProducts");
         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("AllProducts");
-        //query.whereStartsWith("Name", "" + pName);
-        //query.whereMatches("Name", "(" + pName + ")", "i");
-        //Body Spray
-       // query2.whereMatches("Subcategory","(Body Spray)","i");
+
 
         query2.whereMatchesKeyInQuery("Subcategory", "Subcategory", query.whereMatches("pname", "(" + pName.trim() + ")", "i"));
 
         return query2;
     }
 
+    public ParseQuery<ParseObject> getReviews(String pName,String store) {
+
+        ParseQuery<ParseObject> reviews = ParseQuery.getQuery("Review");
+        reviews.whereEqualTo("Name", pName);
+        reviews.whereEqualTo("store", store);
+
+        return reviews;
+    }
 
     class UPCDatabase extends AsyncTask<Void, Void, Void> {
 
@@ -1353,8 +1385,8 @@ public class DB {
                 parsedHtmlNode = productName;
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(mainContext.getApplicationContext(), "Failed to find barcode in upcDatabase!!",
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(mainContext.getApplicationContext(), "Failed to find barcode in upcDatabase!!",
+  //                      Toast.LENGTH_LONG).show();
             }
             return null;
         }

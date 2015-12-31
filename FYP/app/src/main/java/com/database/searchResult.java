@@ -69,59 +69,70 @@ public class searchResult extends BaseActivity {
                 public void done(List<ParseObject> scoreList, ParseException e) {
                     globalScoreList = scoreList;
                     if (e == null) {
-                        //region Arrays for Custom List View
-                        String[] itemname = new String[scoreList.size()];
-                        String[] Prices = new String[scoreList.size()];
-                        //will have to work on how to make these logo dynamic
-                        Integer[] imgid2={
-                                R.mipmap.qne_logo,//qne
-                                R.mipmap.gomart_logo,//gomart
-                                R.mipmap.aaramshop,
-                                R.mipmap.doorstep,
-                                R.mipmap.rashan_lelo,
-                                R.mipmap.shoprex_logo,
-                                R.mipmap.cartpk,
-                                R.mipmap.qne_logo,//qne
-                                R.mipmap.aaramshop
-                        };
-                        ArrayList<String> webstores = new ArrayList<String>();
-                        webstores.add("qne.com.pk");
-                        webstores.add("gomart.com");
-                        webstores.add("aaramshop.pk");
-                        webstores.add("doorstep.pk");
-                        webstores.add("rashanlelo.pk");
-                        webstores.add("shoprex.com");
-                        webstores.add("cartpk.com");
-                        webstores.add("qne.pk");
-                        webstores.add("AaramShop.pk");
+                        if(scoreList.size()>=1) {  //if product was found
+
+                            //region Arrays for Custom List View
+                            String[] itemname = new String[scoreList.size()];
+                            String[] Prices = new String[scoreList.size()];
+                            //will have to work on how to make these logo dynamic
+                            Integer[] imgid2 = {
+                                    R.mipmap.qne_logo,//qne
+                                    R.mipmap.gomart_logo,//gomart
+                                    R.mipmap.aaramshop,
+                                    R.mipmap.doorstep,
+                                    R.mipmap.rashan_lelo,
+                                    R.mipmap.shoprex_logo,
+                                    R.mipmap.cartpk,
+                                    R.mipmap.qne_logo,//qne
+                                    R.mipmap.aaramshop,
+                                    R.mipmap.upcs
+                            };
+                            ArrayList<String> webstores = new ArrayList<String>();
+                            webstores.add("qne.com.pk");
+                            webstores.add("gomart.com");
+                            webstores.add("aaramshop.pk");
+                            webstores.add("doorstep.pk");
+                            webstores.add("rashanlelo.pk");
+                            webstores.add("shoprex.com");
+                            webstores.add("cartpk.com");
+                            webstores.add("qne.pk");
+                            webstores.add("AaramShop.pk");
+                            webstores.add("upcdatabase");
 
 
-                        Integer[] imgid= new Integer[scoreList.size()];
-                        //endregion
+                            Integer[] imgid = new Integer[scoreList.size()];
+                            //endregion
 
-                        //populates the list of products
-                        for (int i = 0; i < scoreList.size(); i++) {
+                            //populates the list of products
+                            for (int i = 0; i < scoreList.size(); i++) {
 
-                            //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
-                            //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
-                            Prices[i] = scoreList.get(i).get("price")+"";
-                            itemname[i] = scoreList.get(i).get("pname")+"";
-                            try{ imgid[i]= imgid2[webstores.indexOf(scoreList.get(i).get("store"))];}catch(Exception ex){
-                                System.out.println("error: i = "+i+" store = "+scoreList.get(i).get("store"));
+                                //System.out.println("Price" + "" + scoreList.get(i).get("Price"));
+                                //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
+                                Prices[i] = scoreList.get(i).get("price") + "";
+                                itemname[i] = scoreList.get(i).get("pname") + "";
+                                try {
+                                    imgid[i] = imgid2[webstores.indexOf(scoreList.get(i).get("store"))];
+                                } catch (Exception ex) {
+                                    System.out.println("error: i = " + i + " store = " + scoreList.get(i).get("store"));
+                                    imgid[i] = imgid2[0];
+                                }
+                                links.add(scoreList.get(i).get("link1").toString());
+                                System.out.println("Product name test print----->" + scoreList.get(i).get("pname"));
                             }
-                            links.add(scoreList.get(i).get("link1").toString());
-                            System.out.println("Product name test print----->"+scoreList.get(i).get("pname"));
+
+                            ListViewItems adapter = new ListViewItems(searchResult.this, itemname, imgid, Prices);
+
+                            list.setAdapter(adapter);
+                            registerForContextMenu(list);
+                            dbObject.sqliteClose();
+                            textview.setVisibility(View.GONE);
+                            progresBar.setVisibility(View.GONE);
+                            list.setVisibility(View.VISIBLE);
+                        }else{ //if nothing was found
+                            
+                            textview.setText("NOTHING FOUND");
+                            progresBar.setVisibility(View.GONE);
                         }
-
-                        ListViewItems adapter=new ListViewItems(searchResult.this,itemname, imgid,Prices);
-
-                        list.setAdapter(adapter);
-                        registerForContextMenu(list);
-                        System.out.println("reached here 123");
-                        textview.setVisibility(View.GONE);
-                        progresBar.setVisibility(View.GONE);
-                        list.setVisibility(View.VISIBLE);
-
                     } else {
                         System.out.println("Error: " + e.getMessage());
 
@@ -186,26 +197,7 @@ public class searchResult extends BaseActivity {
 
 
 
-    private class Progress extends AsyncTask<Void, Void, Void>  {
-        protected void onPreExecute() {
-            textview.setVisibility(View.VISIBLE);
-            progresBar.setVisibility(View.VISIBLE);
-        }
 
-        protected Void doInBackground(Void... params) {
-
-            return null;
-        }
-
-
-        protected void onPostExecute(Void content) {
-            // hide progress dialog
-            // show the content
-
-        }
-
-
-    }
 }
 
 

@@ -34,7 +34,7 @@ public class ListViewItems extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         TextView ProductNameTxt = (TextView) rowView.findViewById(R.id.textView1);
 
-        PriceTxt.setText("Rs. "+Prices[position]);
+        PriceTxt.setText(Prices[position]);
         imageView.setImageResource(imgid[position]);
         ProductNameTxt.setText(itemname[position]);
         return rowView;

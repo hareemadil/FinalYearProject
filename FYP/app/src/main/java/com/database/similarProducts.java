@@ -20,6 +20,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,73 +61,65 @@ public class similarProducts extends BaseActivity {
                 public void done(List<ParseObject> scoreList, ParseException e) {
                     globalScoreList = scoreList;
                     if (e == null) {
-                        // ArrayList<String> results = new ArrayList<>();
-                        String[] itemname = new String[scoreList.size()];
-                        String[] Prices = new String[scoreList.size()];
-                        //will have to work on how to make these logo dynamic
-                        Integer[] imgid2={
-                                R.mipmap.qne_logo,//qne
-                                R.mipmap.gomart_logo,//gomart
-                                R.mipmap.aaramshop,
-                                R.mipmap.doorstep,
-                                R.mipmap.rashan_lelo,
-                                R.mipmap.shoprex_logo,
-                                R.mipmap.cartpk,
-                                R.mipmap.qne_logo,//qne
-                                R.mipmap.aaramshop
-                        };
-                        ArrayList<String> webstores = new ArrayList<String>();
-                        webstores.add("qne.com.pk");
-                        webstores.add("gomart.com");
-                        webstores.add("aaramshop.pk");
-                        webstores.add("doorstep.pk");
-                        webstores.add("rashanlelo.pk");
-                        webstores.add("shoprex.com");
-                        webstores.add("cartpk.com");
-                        webstores.add("qne.pk");
-                        webstores.add("AaramShop.pk");
+
+                        if(scoreList.size() > 1 &&  scoreList.size() < 100 ) {
+                            String[] itemname = new String[scoreList.size()];
+                            String[] Prices = new String[scoreList.size()];
+                            //will have to work on how to make these logo dynamic
+                            Integer[] imgid2 = {
+                                    R.mipmap.qne_logo,//qne
+                                    R.mipmap.gomart_logo,//gomart
+                                    R.mipmap.aaramshop,
+                                    R.mipmap.doorstep,
+                                    R.mipmap.rashan_lelo,
+                                    R.mipmap.shoprex_logo,
+                                    R.mipmap.cartpk,
+                                    R.mipmap.qne_logo,//qne
+                                    R.mipmap.aaramshop,
+                                    R.mipmap.upcs
+                            };
+                            ArrayList<String> webstores = new ArrayList<String>();
+                            webstores.add("qne.com.pk");
+                            webstores.add("gomart.com");
+                            webstores.add("aaramshop.pk");
+                            webstores.add("doorstep.pk");
+                            webstores.add("rashanlelo.pk");
+                            webstores.add("shoprex.com");
+                            webstores.add("cartpk.com");
+                            webstores.add("qne.pk");
+                            webstores.add("AaramShop.pk");
+                            webstores.add("upcdatabase");
 
 
-                        Integer[] imgid= new Integer[scoreList.size()];
+                            Integer[] imgid = new Integer[scoreList.size()];
 
-                        //populates the list of products
-                        for (int i = 0; i < scoreList.size(); i++) {
+                            //populates the list of products
+                            for (int i = 0; i < scoreList.size(); i++) {
 
-                            System.out.println("Name" + "" + scoreList.get(i).get("pname"));
-                            //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
-                            Prices[i] = scoreList.get(i).get("price")+"";
-                            itemname[i] = scoreList.get(i).get("pname")+"";
-                            imgid[i]= imgid2[webstores.indexOf(scoreList.get(i).get("store"))];
-                            links.add(scoreList.get(i).get("link1").toString());
+                                System.out.println("Name" + "" + scoreList.get(i).get("pname"));
+                                //results.add(scoreList.get(i).get("Name") + " : " + scoreList.get(i).get("Price")); itemname[i] = scoreList.get(i).get("Name")+"";
+                                Prices[i] = scoreList.get(i).get("price") + "";
+                                itemname[i] = scoreList.get(i).get("pname") + "";
+                                imgid[i] = imgid2[webstores.indexOf(scoreList.get(i).get("store"))];
+                                links.add(scoreList.get(i).get("link1").toString());
+
+                            }
+
+                            ListViewItems adapter = new ListViewItems(similarProducts.this, itemname, imgid, Prices);
+                            list = (ListView) findViewById(R.id.list);
+                            list.setAdapter(adapter);
+                            registerForContextMenu(list);
+                            textview.setVisibility(View.GONE);
+                            progresBar.setVisibility(View.GONE);
+                            list.setVisibility(View.VISIBLE);
+                            dbObject.sqliteClose();
 
                         }
+                        else{
+                            textview.setText("No Similar Product found");
+                            progresBar.setVisibility(View.GONE);
 
-                        ListViewItems adapter=new ListViewItems(similarProducts.this,itemname, imgid,Prices);
-                        list=(ListView)findViewById(R.id.list);
-                        list.setAdapter(adapter);
-                        registerForContextMenu(list);
-                        textview.setVisibility(View.GONE);
-                        progresBar.setVisibility(View.GONE);
-                        list.setVisibility(View.VISIBLE);
-
-
-                        list.setOnItemClickListener(new OnItemClickListener() {
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-                                // When clicked, show a toast with the TextView text Game, Help, Home
-                               // Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                                //        Toast.LENGTH_SHORT).show();
-                            //    String sText = ((TextView) view).getText().toString();
-                                Intent intent = null;
-
-                                    intent = new Intent(getBaseContext(),            Review.class);
-
-
-                                if (intent != null)
-                                    startActivity(intent);
-                            }
-                        });
-
+                        }
                     } else {
                         System.out.println("Error: " + e.getMessage());
 
@@ -148,15 +141,6 @@ public class similarProducts extends BaseActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        //AdapterView.AdapterContextMenuInfo aInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
-
-        // We know that each row in the adapter is a Map
-
-        //
-        // HashMap map =  (HashMap) list.getItemAtPosition(aInfo.position);
-
-      //  menu.setHeaderTitle("Options for " + map.get("itemname"));
-
         menu.add(1, 1, 1, "Review");
         menu.add(1, 2, 2, "Go to link");
     }
@@ -170,8 +154,8 @@ public class similarProducts extends BaseActivity {
             case 1:
                 Intent myIntent = new Intent(getApplicationContext(), Review.class);
                 ParseObject product = globalScoreList.get(index);
-                String name =  (String)product.get("Name");
-                String store = (String)product.get("Store");
+                String name =  (String)product.get("pname");
+                String store = (String)product.get("store");
                 System.out.println("name : " + name + ", store : " + store);
 
                 myIntent.putExtra("com.aaa.fyp.ProductName", name);

@@ -27,7 +27,8 @@ public class historyDB {
         this.mainContext =mainCtx;
         mDbAdapter = new HistoryDBAdapter(mainContext);
         mDbAdapter.open();
-        try{popuateSampleData();}catch(Exception e){e.printStackTrace();}
+        try{popuateSampleData();}catch(Exception e){
+            System.out.println("ignore the exceptions(it is just valuable information)");e.printStackTrace();}
     }
 
     public Cursor getHistory() {

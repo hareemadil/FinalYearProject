@@ -35,7 +35,7 @@ public class CustomListViewHistory extends ArrayAdapter<String> {
       //  ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         TextView ProductNameTxt = (TextView) rowView.findViewById(R.id.textView1History);
         String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-        TextView date = (TextView) rowView.findViewById(R.id.Date);
+        TextView date = (TextView) rowView.findViewById(R.id.Store);
         PriceTxt.setText("Name: "+ Pname[position]);
         ProductNameTxt.setText(itemname[position]);
         date.setText(formattedDate);
