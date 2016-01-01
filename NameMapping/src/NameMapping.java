@@ -1,43 +1,56 @@
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
  *
- * @author Jahaanzaib
+ * @author Hx
  */
 public class NameMapping {
 
     /**
      * @param args the command line arguments
      */
+    static int threhsold = 5;
+    static int globalVariable=1;
+    static ArrayList<ArrayList<String>> SimilarWords;
+    static ArrayList<String> cluster;
+    static String[][] dataBase;
+    
     public static void main(String[] args) {
-        
+        SimilarWords = new ArrayList<>();
+        cluster = new ArrayList<>();
         try {
-            Database db = new Database();
-            db.openConnection();
-            ResultSet rs = db.read("select * from `table 3`");
+            populateDbArray();
             
-            while(rs.next()){
-                System.out.println("registerProduct(\""+rs.getString(1)+"\",\""+rs.getString(3)+"\",\""+rs.getString(2)+"\");");
+            
+            for(int i=0; i < dataBase.length; i++){
+                cluster.clear();
+            for(int j=i+1; j < 2 /*dataBase.length*/; j++){
+                //System.out.println(dataBase[i][0]+","+dataBase[j][0]+" = "+editDistance(dataBase[i][0],dataBase[j][0]));        
+                if(editDistance(dataBase[i][0], dataBase[j][0])< 15){
+                    if( Math.abs(Integer.parseInt(dataBase[i][1].replace("Rs.", "").replace("Price", ""))-Integer.parseInt(dataBase[j][1].replace("Rs.", "").replace("Price", ""))) < 10 ){
+                        if(editDistance(dataBase[i][2], dataBase[j][2]) < 5){
+                            cluster.add(dataBase[i][0]);
+                            cluster.add(dataBase[i][1]);
+                        }
+                    }
+                }
+            
+            }
+            SimilarWords.add(cluster);
+            
             }
             
-            
-          //  System.out.println("here you go--> " + rs.getString("pname"));
-           // System.out.println("distance == "+minDistance("Aquafina water","Aquafina bottle"));
-        } catch (SQLException ex) {
+         
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    public static int minDistance(String word1, String word2) {
+    
+    public static int editDistance(String word1, String word2) {
 	int len1 = word1.length();
 	int len2 = word2.length();
  
@@ -76,4 +89,27 @@ public class NameMapping {
  
 	return dp[len1][len2];
 }
+
+    private static void populateDbArray() throws Exception {
+        Database db = new Database();
+        db.openConnection();
+        ResultSet rs = db.read("select pname,price,weight from `combined` order by pname asc");
+        ResultSet rs2 = db.read("select count(*) from combined");
+        rs.next();
+        rs2.next();
+        System.out.println("size="+rs2.getInt(1));
+        dataBase = new String[rs2.getInt(1)][3];
+        
+        for (int i=1;i <= dataBase.length; i++){
+        dataBase[i-1][0]= rs.getString("pname");
+        dataBase[i-1][1]= rs.getString("price");
+        dataBase[i-1][2]= rs.getString("weight");
+    //        System.out.println("["+i+"]:"+dataBase[i-1][0]+",2:"+dataBase[i-1][1]+",3:"+dataBase[i-1][2]);
+            rs.next();
+        }
+        
+    }
+
+    
+
 }
